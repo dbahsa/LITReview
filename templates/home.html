@@ -2,15 +2,15 @@
 {% extends 'base.html' %}
 
 
-{% block title %}Home{% endblock title %}
+{% block title %}Accueil{% endblock title %}
 
 {% block content %}
 {% if user.is_authenticated %}
 Hi {{ user.username }}!
-    <p><a href="{% url 'logout' %}">Log Out</a></p>
+    <p><a href="{% url 'logout' %}">Se déconnecter</a></p>
 {% else %}
-    <p>You are not logged in</p>
-    <a href="{% url 'login' %}">Log In</a> |
-    <a href="{% url 'signup' %}">Sign Up</a>
+    <p>Veuillez vous connecter!</p>
+    <a href="{% url 'login' %}">Se connecter</a> |
+    <a href="{% url 'signup' %}">S'inscrire</a>
 {% endif %}
 {% endblock content %}

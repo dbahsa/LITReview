@@ -2,7 +2,7 @@
 {% extends 'base.html' %}
 
 
-{% block title %}Log In{% endblock title %}
+{% block title %}Se connecter{% endblock title %}
 
 
 {% block content %}
@@ -10,6 +10,6 @@
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Se connecter</button>
+    <button class="btn btn-success ml-2" type="submit">Se connecter</button>
 </form>
 {% endblock content %}
