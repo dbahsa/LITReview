@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'crispy_forms', # 3rd Party
     'users.apps.UsersConfig', # local
     'pages.apps.PagesConfig', # local
+    'tickets.apps.TicketsConfig', # local
 ]
 
 MIDDLEWARE = [
@@ -108,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'fr-FR'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Paris'
 
 USE_I18N = True
 
