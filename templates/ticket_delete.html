@@ -1,0 +1,12 @@
+<!-- templates/ticket_delete.html -->
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <h1>Effacer</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <p>Êtes-vous sûr.e de vouloir effacer?"{{ ticket.title }}"?</p>
+        <button class="btn btn-danger ml-2" type="submit">Confirmer</button>
+    </form>
+{% endblock content %}

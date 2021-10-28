@@ -5,12 +5,11 @@
 {% block title %}Accueil{% endblock title %}
 
 {% block content %}
-{% if user.is_authenticated %}
-Hi {{ user.username }}!
-    <p><a href="{% url 'logout' %}">Se déconnecter</a></p>
-{% else %}
-    <p>Veuillez vous connecter!</p>
-    <a href="{% url 'login' %}">Se connecter</a> |
-    <a href="{% url 'signup' %}">S'inscrire</a>
-{% endif %}
+<div class="jumbotron">
+    <h1 class="display-4">Site de critique littéraire</h1>
+    <p class="lead">Etude, discussion, évaluation et interprétation de la littérature</p>
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" href="{% url 'ticket_list' %}" role="button">Voir toutes les critiques</a>
+    </p>
+</div>
 {% endblock content %}
