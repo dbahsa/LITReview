@@ -1,4 +1,6 @@
 # LITReview
+### Site de critique littéraire
+##### Etude, discussion, évaluation et interprétation de la littérature
 ![LITReview](media/black-bus-man-airport.jpg)
 ## Installation & Utilisation
 ### Fichiers & Dossiers
