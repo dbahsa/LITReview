@@ -1,7 +1,7 @@
 # LITReview
 ### Site de critique littéraire
 ##### Etude, discussion, évaluation et interprétation de la littérature
-![LITReview](media/black-bus-man-airport.jpg)
+![LITReview](/static/images/black-bus-man-airport.jpg)
 ## Installation & Utilisation
 ### Fichiers & Dossiers
 #### Dossiers
@@ -12,7 +12,7 @@
 * **.py**: utiliser pour ...
 * **.py**: ...
 * .py: utiliser pour ...
-* pipvenv: ...
+* pipenv: ...
 * requirements: modules/packages du projet
 ## Auteur
 * **Didier K Nzimbi** _alias_ [dbahsa](https://github.com/dbahsa)
