@@ -7,6 +7,7 @@ from django.urls import reverse
 class Ticket(models.Model):
     title = models.CharField(max_length=255)
     body = models.TextField()
+    image = models.ImageField(null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(
         get_user_model(),

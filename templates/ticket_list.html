@@ -21,8 +21,10 @@
             </div>
             <div class="card-body">
                 <p>{{ ticket.body }}</p>
-                <a href="{% url 'ticket_edit' ticket.pk %}">Modifier</a> |
-                <a href="{% url 'ticket_delete' ticket.pk %}">Effacer</a>
+                {% if user.is_authenticated and user == ticket.author %}
+                    <a href="{% url 'ticket_edit' ticket.pk %}">Modifier</a> |
+                    <a href="{% url 'ticket_delete' ticket.pk %}">Effacer</a>
+                {% endif %}
             </div>
             <div class="card-footer text-muted">
                 {% for comment in ticket.comments.all %}
