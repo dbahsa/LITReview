@@ -3,8 +3,9 @@
 
 {% block content %}
     <h1>Modifier</h1>
-    <form action="" method="post">
-        {% csrf_token %} {{ form.as_p }}
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
         <button class="btn btn-info ml-2" type="submit">Actualiser</button>
     </form>
 {% endblock content %}

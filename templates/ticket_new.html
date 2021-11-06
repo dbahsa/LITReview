@@ -4,7 +4,7 @@
 
 {% block content %}
     <h1>Demander une critique (nouveau ticket)</h1>
-    <form action="" method="post">
+    <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button class="btn btn-success ml-2" type="submit">Enregistrer</button>
