@@ -52,13 +52,11 @@ class Comment(models.Model):
         on_delete=models.CASCADE,
     )
     
-    
     # headline = models.CharField(max_length=128)
     # body = models.CharField(max_length=8192, blank=True)
     # user = models.ForeignKey(
     #     to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     # time_created = models.DateTimeField(auto_now_add=True)
-
 
     def __str__(self):
         return self.comment
