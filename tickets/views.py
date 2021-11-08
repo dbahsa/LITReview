@@ -23,7 +23,7 @@ class TicketDetailView(LoginRequiredMixin, DetailView):
 
 class TicketUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Ticket
-    fields = ('title', 'body',)
+    fields = ('title', 'body', 'image')
     template_name = 'ticket_edit.html'
     login_url = 'login'
 

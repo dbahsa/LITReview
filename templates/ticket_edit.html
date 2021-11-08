@@ -3,7 +3,7 @@
 
 {% block content %}
     <h1>Modifier</h1>
-    <form action="" method="POST" enctype="multipart/form-data">
+    <form action="{% url 'ticket_edit' ticket.pk %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button class="btn btn-info ml-2" type="submit">Actualiser</button>
