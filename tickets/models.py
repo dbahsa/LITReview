@@ -4,6 +4,8 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
 
+# from django import forms
+
 
 
 class Ticket(models.Model):
@@ -27,14 +29,14 @@ class Ticket(models.Model):
 
 class Comment(models.Model):
     
-    choices = (
-            ('0', '- 0'),
-            ('0', '- 0'),
-            ('0', '- 0'),
-            ('0', '- 0'),
-            ('0', '- 0'),
-            ('0', '- 0'),
-        )
+    # RATINGS = (
+    #         ('0', '- 0'),
+    #         ('0', '- 0'),
+    #         ('0', '- 0'),
+    #         ('0', '- 0'),
+    #         ('0', '- 0'),
+    #         ('0', '- 0'),
+    #     )
     
     ticket = models.ForeignKey(
         Ticket, 
@@ -43,6 +45,7 @@ class Comment(models.Model):
     )
     # ticket = models.ForeignKey(to=Ticket, on_delete=models.CASCADE)
     comment = models.CharField(max_length=140)
+    # note = forms.CharField(widget=forms.Select(choices=RATINGS))
     # rating = models.PositiveSmallIntegerField(
     #     # validates that rating must be between 0 and 5
     #     validators=[MinValueValidator(0), MaxValueValidator(5)])
