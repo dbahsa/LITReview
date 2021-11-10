@@ -2,11 +2,14 @@
 {% extends 'base.html' %}
 
 
+{% load crispy_forms_filters %}
+
+
 {% block content %}
     <h1>Demander une critique (nouveau ticket)</h1>
     <form action="{% url 'ticket_new' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form|crispy }}
         <button class="btn btn-success ml-2" type="submit">Enregistrer</button>
     </form>
 {% endblock content %}

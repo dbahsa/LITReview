@@ -1,10 +1,9 @@
+from typing import Any
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
-
-# from django import forms
 
 
 
@@ -29,28 +28,34 @@ class Ticket(models.Model):
 
 class Comment(models.Model):
     
-    # RATINGS = (
-    #         ('0', '- 0'),
-    #         ('0', '- 0'),
-    #         ('0', '- 0'),
-    #         ('0', '- 0'),
-    #         ('0', '- 0'),
-    #         ('0', '- 0'),
-    #     )
+    RATINGS = (
+            ('0', '- 0'),
+            ('1', '- 1'),
+            ('2', '- 2'),
+            ('3', '- 3'),
+            ('4', '- 4'),
+            ('5', '- 5'),
+        )
     
     ticket = models.ForeignKey(
         Ticket, 
         on_delete=models.CASCADE,
         related_name='comments',
     )
-    # ticket = models.ForeignKey(to=Ticket, on_delete=models.CASCADE)
-    comment = models.CharField(max_length=140)
-    # note = forms.CharField(widget=forms.Select(choices=RATINGS))
+    
+
+    titre = models.CharField(blank=True, max_length=255)
+    commentaire = models.TextField()
+
+    # note = models.IntegerField(default=None, choices=RATINGS)
+    note = models.PositiveSmallIntegerField(blank=True, default=None, validators=[MinValueValidator(0), MaxValueValidator(5)], help_text='Veuillez dérouler le menu ci-dessus pour ajouter votre note' , choices=RATINGS)
+    
+    # note = models.ChoiceField(choices=RATINGS)
     # rating = models.PositiveSmallIntegerField(
     #     # validates that rating must be between 0 and 5
     #     validators=[MinValueValidator(0), MaxValueValidator(5)])
 
-    author = models.ForeignKey(
+    auteur = models.ForeignKey(
         get_user_model(), 
         on_delete=models.CASCADE,
     )
@@ -61,8 +66,9 @@ class Comment(models.Model):
     #     to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     # time_created = models.DateTimeField(auto_now_add=True)
 
+
     def __str__(self):
-        return self.comment
+        return self.commentaire
 
 
     def get_absolute_url(self):

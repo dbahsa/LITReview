@@ -7,6 +7,7 @@
         <h2>{{ object.title }}</h2>
         <p>by {{ object.author }} | {{ object.date }}</p>
         <p>{{ object.body }}</p>
+        <img class="image" src="/static/images/{{ ticket.image }}">
     </div>
     <p><a href="{% url 'ticket_edit' ticket.pk %}">Modifier</a> |
     <a href="{% url 'ticket_delete' ticket.pk %}">Effacer</a></p>
