@@ -11,6 +11,11 @@ from .models import Ticket
 from django.shortcuts import render
 from .forms import ReviewForm
 
+from django.template.context_processors import csrf
+from crispy_forms.utils import render_crispy_form
+from django.http import HttpResponse
+import json
+
 
 class TicketListView(LoginRequiredMixin, ListView):
     model = Ticket
@@ -60,5 +65,11 @@ class TicketCreateView(LoginRequiredMixin, CreateView):
         
 def create_review(request):
     form = ReviewForm()
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return render(request, 'ticket_list.html')
+
     return render(request, 'review_new.html', {'form': form})
     

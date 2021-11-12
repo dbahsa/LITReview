@@ -8,7 +8,7 @@
 {% block content %}
 <div class="text-center">
     <a type="btn" href="{% url 'ticket_new' %}" class="btn btn-outline-primary">Demander une critique</a>
-    <button type="button" class="btn btn-outline-primary">Créer une critique</button>
+    <a type="btn" href="{% url 'review_new' %}" class="btn btn-outline-primary">Créer une critique</a>
 </div>
 <br/>
     {% if ticket_list %}
