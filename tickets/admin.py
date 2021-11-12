@@ -1,6 +1,9 @@
 from django.contrib import admin
 
-from .models import Ticket, Comment
+from .models import Ticket, TicketReview
+
+# from django import template
+# register=template.Library()
 
 
 class LITReviewAdminiSite(admin.AdminSite):
@@ -9,18 +12,18 @@ class LITReviewAdminiSite(admin.AdminSite):
 
 admin_site = LITReviewAdminiSite(name='admin')
 
-# @admin.register(Comment, site=admin_site)
-class CommentInline(admin.TabularInline):
-    model = Comment
+# @admin.register(TicketReview, site=admin_site)
+class TicketReviewInline(admin.TabularInline):
+    model = TicketReview
     extra = 0 
 
 
 # @admin.register(Ticket, site=admin_site)
 class TicketAdmin(admin.ModelAdmin):
     inlines = [
-        CommentInline,
+        TicketReviewInline,
     ]
 
 
 admin_site.register(Ticket, TicketAdmin)
-admin_site.register(Comment)
+admin_site.register(TicketReview)

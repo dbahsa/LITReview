@@ -8,6 +8,9 @@ from django.urls import reverse_lazy
 
 from .models import Ticket
 
+from django.shortcuts import render
+from .forms import ReviewForm
+
 
 class TicketListView(LoginRequiredMixin, ListView):
     model = Ticket
@@ -42,12 +45,20 @@ class TicketDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         obj = self.get_object()
         return obj.author == self.request.user
 
+
+
 class TicketCreateView(LoginRequiredMixin, CreateView):
     model = Ticket
     template_name = 'ticket_new.html'
-    fields = ('title', 'body', 'image',)
+    fields = ('title', 'body', 'image', )
     login_url = 'login'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+        
+def create_review(request):
+    form = ReviewForm()
+    return render(request, 'review_new.html', {'form': form})
+    

@@ -17,16 +17,15 @@ class Ticket(models.Model):
         on_delete=models.CASCADE,
     )
     
-    
     def __str__(self):
         return self.title
     
-
     def get_absolute_url(self):
         return reverse('ticket_detail', args=[str(self.id)])
 
 
-class Comment(models.Model):
+# Ticket Review
+class TicketReview(models.Model):
     
     RATINGS = (
             ('0', '- 0'),
@@ -36,40 +35,16 @@ class Comment(models.Model):
             ('4', '- 4'),
             ('5', '- 5'),
         )
-    
-    ticket = models.ForeignKey(
-        Ticket, 
-        on_delete=models.CASCADE,
-        related_name='comments',
-    )
-    
-
-    titre = models.CharField(blank=True, max_length=255)
-    commentaire = models.TextField()
-
-    # note = models.IntegerField(default=None, choices=RATINGS)
-    note = models.PositiveSmallIntegerField(blank=True, default=None, validators=[MinValueValidator(0), MaxValueValidator(5)], help_text='Veuillez dérouler le menu ci-dessus pour ajouter votre note' , choices=RATINGS)
-    
-    # note = models.ChoiceField(choices=RATINGS)
-    # rating = models.PositiveSmallIntegerField(
-    #     # validates that rating must be between 0 and 5
-    #     validators=[MinValueValidator(0), MaxValueValidator(5)])
-
-    auteur = models.ForeignKey(
-        get_user_model(), 
-        on_delete=models.CASCADE,
-    )
-    
-    # headline = models.CharField(max_length=128)
-    # body = models.CharField(max_length=8192, blank=True)
-    # user = models.ForeignKey(
-    #     to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    # time_created = models.DateTimeField(auto_now_add=True)
-
+    user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    # author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE,)
+    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE, related_name='comments',)
+    headline = models.CharField(max_length=128, default=None, blank=True)
+    rating = models.CharField(max_length=100 , choices=RATINGS, null=True)
+    body = models.TextField()
+    time_created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
-        return self.commentaire
-
+        return self.rating
 
     def get_absolute_url(self):
         return reverse('ticket_list')

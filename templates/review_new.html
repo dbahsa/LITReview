@@ -1,4 +1,4 @@
-<!-- templates/ticket_new.html -->
+<!-- templates/review_new.html -->
 {% extends 'base.html' %}
 
 
@@ -6,8 +6,9 @@
 
 
 {% block content %}
-    <h1>Demander une critique (nouveau ticket)</h1>
-    <form action="{% url 'ticket_new' %}" method="post" enctype="multipart/form-data">
+    <h1>Créer une critique (nouvelle critique)</h1>
+    <hr>
+    <form action="{% url 'review_new' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form|crispy }}
         <button class="btn btn-success ml-2" type="submit">Enregistrer</button>
