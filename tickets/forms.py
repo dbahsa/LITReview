@@ -1,4 +1,5 @@
 from django import forms
+from django.urls.base import translate_url
 
 from .models import TicketReview
 
@@ -7,13 +8,13 @@ from crispy_forms.layout import Submit, Layout, Row, Column
 from crispy_forms.bootstrap import InlineRadios, FormActions
 
 
-class ReviewForm(forms.ModelForm):
-    rating = forms.ChoiceField(choices=TicketReview.RATINGS, widget=forms.RadioSelect)
+class RateForm(forms.ModelForm):
+    rate = forms.ChoiceField(choices=TicketReview.RATINGS, widget=forms.RadioSelect, required=True)
 
     class Meta:
         model = TicketReview
         # fields = "__all__"
-        fields = ('ticket', 'rating', 'headline', 'body')
+        fields = ('ticket', 'rate', 'headline', 'body')
 
     
     def __init__(self, *args, **kwargs):
@@ -26,7 +27,7 @@ class ReviewForm(forms.ModelForm):
 
         self.helper.layout = Layout(
             Row(Column('ticket'), Column('headline'),),
-            InlineRadios('rating'),
+            InlineRadios('rate'),
             'body',
             FormActions(
                 Submit('save_review', 'Envoyer', css_class='btn btn-success'),

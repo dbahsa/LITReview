@@ -37,23 +37,29 @@ class TicketReview(models.Model):
         )
     user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     # author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE,)
-    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE, related_name='comments',)
+    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE, related_name='ticket',)
     headline = models.CharField(max_length=128, default=None, blank=True)
-    rating = models.CharField(max_length=100 , choices=RATINGS, null=True)
+    rate = models.CharField(max_length=1, choices=RATINGS)
     body = models.TextField()
-    time_created = models.DateTimeField(auto_now_add=True, null=True)
+    time_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.rating
+        return self.rate
+        # return self.user.username
 
     def get_absolute_url(self):
-        return reverse('ticket_list')
+        return reverse('review_new', args=[str(self.id)])
 
+
+
+## Alternative solution
 
 # class UserFollows(models.Model):
-#     # Your UserFollows model definition goes here
+#     user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user')
+#     followed_user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='followed_user')
 
 #     class Meta:
 #         # ensures we don't get multiple UserFollows instances
 #         # for unique user-user_followed pairs
 #         unique_together = ('user', 'followed_user', )
+
