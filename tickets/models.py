@@ -35,21 +35,23 @@ class TicketReview(models.Model):
             ('4', '- 4'),
             ('5', '- 5'),
         )
-    user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    # author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE,)
-    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE, related_name='ticket',)
+    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE, related_name='tickets',)
+    # user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     headline = models.CharField(max_length=128, default=None, blank=True)
     rate = models.CharField(max_length=1, choices=RATINGS)
     body = models.TextField()
     time_created = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE,)
 
     def __str__(self):
-        return self.rate
-        # return self.user.username
+        return self.body
 
     def get_absolute_url(self):
-        return reverse('review_new', args=[str(self.id)])
+        return reverse('ticket_list')
 
+    class Meta:
+        verbose_name = 'Review'
+        verbose_name_plural = 'Reviews'
 
 
 ## Alternative solution

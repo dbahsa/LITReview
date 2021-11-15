@@ -6,47 +6,47 @@
 
 
 {% block content %}
-<div class="text-center">
-    <a type="btn" href="{% url 'ticket_new' %}" class="btn btn-outline-primary">Demander une critique</a>
-    <a type="btn" href="{% url 'review_new' %}" class="btn btn-outline-primary">Créer une critique</a>
-</div>
-<br/>
+    <div class="text-center">
+        <a type="btn" href="{% url 'ticket_new' %}" class="btn btn-outline-primary">Demander une critique</a>
+        <a type="btn" href="{% url 'review_new' %}" class="btn btn-outline-primary">Créer une critique</a>
+    </div>
+    <br/>
     {% if ticket_list %}
+        {% for ticket in object_list %}
+            <div class="card">
+                    <div class="card-header">
+                        <a href="{% url 'ticket_detail' ticket.pk %}">
+                        <span class="font-weight-bold">{{ ticket.title }}</span></a> &middot; 
+                        <span class="text-muted">
+                            par {{ ticket.author }} | {{ ticket.date }}
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <p>{{ ticket.body }}</p>
 
-    {% for ticket in object_list %}
-        <div class="card">
-                <div class="card-header">
-                    <a href="{% url 'ticket_detail' ticket.pk %}">
-                    <span class="font-weight-bold">{{ ticket.title }}</span></a> &middot; 
-                    <span class="text-muted">
-                        par {{ ticket.author }} | {{ ticket.date }}
-                    </span>
+                        {% if ticket.image %}
+                            <img class="image" src="/static/images/{{ ticket.image }}"  alt="livre ou article" style="max-width: 300px;"/>
+                        {% endif %}
+                        
+                        {% if user.is_authenticated and user == ticket.author %}
+                            <a href="{% url 'ticket_edit' ticket.pk %}">Modifier</a> |
+                            <a href="{% url 'ticket_delete' ticket.pk %}">Effacer</a>
+                        {% endif %}
+                            <!-- <a type="btn" href="{% url 'review_new' %}" class="btn btn-outline-primary">Créer une critique</a> -->
+                            <a type="btn" href="{% url 'review_new'  %}" class="btn btn-outline-primary">Créer une critique</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        {% for ticket in ticket.tickets.all %}
+                            <p>
+                                <span class="font-weight-bold">{{ ticket.author }} &middot;</span>
+                                {{ ticket }} 
+                            </p>
+                        {% endfor %}
+                    </div>
                 </div>
-                <div class="card-body">
-                    <p>{{ ticket.body }}</p>
-
-                    {% if ticket.image %}
-                        <img class="image" src="/static/images/{{ ticket.image }}" styles="" alt="livre ou article">
-                    {% endif %}
-                    
-                    {% if user.is_authenticated and user == ticket.author %}
-                        <a href="{% url 'ticket_edit' ticket.pk %}">Modifier</a> |
-                        <a href="{% url 'ticket_delete' ticket.pk %}">Effacer</a>
-                    {% endif %}
-                        <a type="btn" href="{% url 'review_new' %}" class="btn btn-outline-primary">Créer une critique</a>
-                </div>
-                <div class="card-footer text-muted">
-                    {% for comment in ticket.comments.all %}
-                        <p>
-                            <span class="font-weight-bold">{{ comment.author }} &middot;</span>
-                            {{ comment }} 
-                        </p>
-                    {% endfor %}
-                </div>
-            </div>
-            <br/>
+                <br/>
         {% endfor %}
-        {% else %}
+    {% else %}
         <p> Aucun ticket n'a été publié</p>
-        {% endif %}
+    {% endif %}
 {% endblock content %}

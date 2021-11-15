@@ -73,27 +73,27 @@ class TicketCreateView(LoginRequiredMixin, CreateView):
         
 def create_review(request):
     form = RateForm()
+    
     if request.method == 'POST':
         form = RateForm(request.POST)
         form.instance.user = request.user
-        # form.instance.ticket = request.ticket
         if form.is_valid():
             form.save()
         return render(request, 'ticket_list.html')
 
-    return render(request, 'review_new.html', {'form': form})
+    context = {'form': form}
+    return render(request, 'review_new.html', context)
 
     ## functional codes
     # form = RateForm()
     # if request.method == 'POST':
     #     form = RateForm(request.POST)
     #     form.instance.user = request.user
-    #     # form.instance.ticket = request.ticket
     #     if form.is_valid():
     #         form.save()
     #     return render(request, 'ticket_list.html')
-
-    # return render(request, 'review_new.html', {'form': form})
+    # context = {'form': form}
+    # return render(request, 'review_new.html', context)
     
 
     ## from help doc
