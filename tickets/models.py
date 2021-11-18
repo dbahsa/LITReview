@@ -48,7 +48,6 @@ class Review(models.Model):
     headline = models.CharField(max_length=128) #, default=None, blank=True
     comment = models.TextField(max_length=8192, blank=True)
     time_created = models.DateTimeField(auto_now_add=True)
-    
 
     def __str__(self):
         return self.comment
@@ -59,6 +58,7 @@ class Review(models.Model):
     class Meta:
         verbose_name = 'Review'
         verbose_name_plural = 'Reviews'
+        # models.UniqueConstraint(fields=['user'], condition=models.Q(status='rating'), name='unique_rating_user')
 
 
 ## Alternative solution

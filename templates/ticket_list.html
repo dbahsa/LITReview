@@ -33,17 +33,27 @@
                             <a href="{% url 'ticket_edit' ticket.pk %}">Modifier</a> |
                             <a href="{% url 'ticket_delete' ticket.pk %}">Effacer</a>
                         {% endif %}
-                            <!-- <a type="btn" href="{% url 'review_new' %}" class="btn btn-outline-primary">Créer une critique</a> -->
+
+                        {% if not ticket.comments.first %}
                             <a type="btn" href="{% url 'review_new'  %}" class="btn btn-outline-primary">Créer une critique</a>
+                        {% endif %}
                     </div>
                     <div class="card-footer text-muted">
 
-                        {% for comment in ticket.comments.all %}
-                        <p>
-                            <span class="font-weight-bold">{{ comment }} </span> - {{ comment.rating }}
+                        <!-- {% for comment in ticket.comments.all %}
+                        <p> -->
+                            <!-- <span class="font-weight-bold">{{ comment }} </span> - {{ comment.rating }} -->
                             <!-- <span class="font-weight-bold">{{ comment.user|title }}</span>: {{ comment }} - {{ comment.rating }} -->
-                        </p>
-                        {% endfor %}
+                        <!-- </p>
+                        {% endfor %} -->
+
+                        {% if ticket.comments.first %}
+                            
+                            <p>
+                                <span class="font-weight-bold">{{ ticket.comments.first }} </span> - {{ ticket.comments.first.rating }}
+                            </p>
+                            
+                        {% endif %}
 
                     </div>
                 </div>
