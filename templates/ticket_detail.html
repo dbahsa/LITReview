@@ -6,9 +6,11 @@
 {% block content %}
     <div class="ticket-entry">
         <h2>{{ object.title }}</h2>
-        <p>by {{ object.author }} | {{ object.date }}</p>
+        <p>by {{ object.user }} | {{ object.date }}</p>
         <p>{{ object.description }}</p>
+        {% if ticket.image %}
         <img class="image" src="/static/images/{{ ticket.image }}" style="max-width: 300px;"/>
+        {% endif %}
     </div>
 
     <p><a href="{% url 'ticket_edit' ticket.pk %}">Modifier</a> |

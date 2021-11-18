@@ -15,13 +15,19 @@
         
         {% for ticket in ticket_list %}
             <div class="card">
+                    
                     <div class="card-header">
                         <a href="{% url 'ticket_detail' ticket.pk %}">
                         <span class="font-weight-bold">{{ ticket.title }}</span></a> &middot; 
-                        <span class="text-muted">
-                            par {{ ticket.user }} | {{ ticket.date }}
-                        </span>
+                        <span class="text-muted"> par {{ ticket.user }}</span>
+                        <span class="text-muted float-right">{{ ticket.date|date:"H:i" }}, {{ ticket.date|date:"d b Y" }}</span>
+                        {% if ticket.comments.first %}
+                            <p>
+                                <span class="font-weight-bold">{{ ticket.comments.first }} </span> - {{ ticket.comments.first.rating }}
+                            </p>
+                        {% endif %}
                     </div>
+                    
                     <div class="card-body">
                         <p>{{ ticket.description }}</p>
 
@@ -29,7 +35,7 @@
                             <img class="image" src="/static/images/{{ ticket.image }}"  alt="livre ou article" style="max-width: 300px;"/>
                         {% endif %}
                         
-                        {% if user.is_authenticated and user == ticket.author %}
+                        {% if user.is_authenticated and user == ticket.user %}
                             <a href="{% url 'ticket_edit' ticket.pk %}">Modifier</a> |
                             <a href="{% url 'ticket_delete' ticket.pk %}">Effacer</a>
                         {% endif %}
@@ -38,24 +44,7 @@
                             <a type="btn" href="{% url 'review_new'  %}" class="btn btn-outline-primary">Créer une critique</a>
                         {% endif %}
                     </div>
-                    <div class="card-footer text-muted">
 
-                        <!-- {% for comment in ticket.comments.all %}
-                        <p> -->
-                            <!-- <span class="font-weight-bold">{{ comment }} </span> - {{ comment.rating }} -->
-                            <!-- <span class="font-weight-bold">{{ comment.user|title }}</span>: {{ comment }} - {{ comment.rating }} -->
-                        <!-- </p>
-                        {% endfor %} -->
-
-                        {% if ticket.comments.first %}
-                            
-                            <p>
-                                <span class="font-weight-bold">{{ ticket.comments.first }} </span> - {{ ticket.comments.first.rating }}
-                            </p>
-                            
-                        {% endif %}
-
-                    </div>
                 </div>
                 <br/>
         {% endfor %}
