@@ -24,5 +24,5 @@ urlpatterns = [
     # path('<int:pk>/delete/', TicketDeleteView.as_view(), name='review_delete'),
     # path('review_new/', create_review, name='review_new'), # OK
     path('review_new/', create_review, name='review_new'),
-    # path('', TicketListView.as_view(), name='review_list'),
+    # path('review_new/', ReviewCreateView.as_view(), name='review_new'),
 ]

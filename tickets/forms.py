@@ -14,7 +14,7 @@ class RateForm(forms.ModelForm):
     class Meta:
         model = Review
         # fields = "__all__"
-        fields = ('ticket', 'rate', 'headline', 'body')
+        fields = ('ticket', 'rate', 'headline', 'comment')
 
     
     def __init__(self, *args, **kwargs):
@@ -28,9 +28,9 @@ class RateForm(forms.ModelForm):
         self.helper.layout = Layout(
             Row(Column('ticket'), Column('headline'),),
             InlineRadios('rate'),
-            'body',
+            'comment',
             FormActions(
                 Submit('save_review', 'Envoyer', css_class='btn btn-success'),
-                Submit('cancel', 'Annuler', css_class='ml-4 btn btn-danger')
+                Submit('cancel_review', 'Annuler', css_class='ml-4 btn btn-danger')
             )
         )

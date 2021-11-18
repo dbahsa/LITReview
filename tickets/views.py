@@ -9,7 +9,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from django.urls import reverse_lazy
 
-from .models import Ticket
+from .models import Ticket #, Review
 
 from django.shortcuts import render
 from .forms import RateForm
@@ -70,6 +70,7 @@ class TicketCreateView(LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
+
         
 def create_review(request):
     form = RateForm()
@@ -83,6 +84,8 @@ def create_review(request):
 
     context = {'form': form}
     return render(request, 'review_new.html', context)
+
+
 
     ## functional codes
     # form = RateForm()
