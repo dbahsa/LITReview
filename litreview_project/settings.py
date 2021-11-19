@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig', # local
     'pages.apps.PagesConfig', # local
     'tickets.apps.TicketsConfig', # local
+    'profiles.apps.ProfilesConfig',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

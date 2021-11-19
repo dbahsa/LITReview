@@ -17,16 +17,13 @@
             <div class="card">
                     
                     <div class="card-header">
-                        <span class="text-muted">{{ ticket.author.first_name }} a demandé une critique</span>
-                        <span class="text-muted float-right" style="font-size:0.7rem;">{{ ticket.created|date:"H:i" }}, {{ ticket.created|date:"d b Y" }}</span>
-                        
+                        <span class="text-muted">{{ ticket.user.first_name }} a demandé une critique</span>
+                        <span class="text-muted float-right" style="font-size:0.7rem;">{{ ticket.date|date:"H:i" }}, {{ ticket.date|date:"d b Y" }}</span>
                         {% if ticket.comments.first %}
                             <p style="margin-bottom:0;">
-                                <span class="text-muted">Critique de {{ ticket.comments.first.author.first_name }}: </span>
-                                <span class="font-weight-bold font-italic">'{{ ticket.comments.first.headline }}' </span> - {{ ticket.comments.first.rating }}
+                                <span class="font-weight-bold">{{ ticket.comments.first.headline }} </span> - {{ ticket.comments.first.rating }}
                             </p>
-                            <!-- <p style="margin-bottom:0;">{{ ticket.comments.first }}</p> -->
-                            
+                            <p style="margin-bottom:0;">{{ ticket.comments.first }}</p>
                         {% endif %}
                     </div>
                     
@@ -44,13 +41,13 @@
                             <img class="image" src="/static/images/{{ ticket.image }}"  alt="livre ou article" style="max-width: 300px;"/>
                         {% endif %}
                         
-                        {% if user.is_authenticated and user == ticket.author %}
+                        {% if user.is_authenticated and user == ticket.user %}
                             <a href="{% url 'ticket_edit' ticket.pk %}">Modifier</a> |
                             <a href="{% url 'ticket_delete' ticket.pk %}">Effacer</a>
                         {% endif %}
 
                         {% if not ticket.comments.first %}
-                            <a type="btn" href="{% url 'review_new' %}" class="btn btn-outline-primary">Créer une critique</a>
+                            <a type="btn" href="{% url 'review_new'  %}" class="btn btn-outline-primary">Créer une critique</a>
                         {% endif %}
                     
                     </div>
@@ -59,6 +56,6 @@
                 <br/>
         {% endfor %}
     {% else %}
-        <p> Aucun ticket n'a été publié</p>
+        <p> Review-List: Aucune Critique n'a été publiée</p>
     {% endif %}
 {% endblock content %}

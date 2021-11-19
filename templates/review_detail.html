@@ -11,7 +11,7 @@
         <img class="image" src="/static/images/{{ ticket.image }}">
     </div>
 
-    <p><a href="{% url 'ticket_edit' ticket.pk %}">Modifier</a> |
-    <a href="{% url 'ticket_delete' ticket.pk %}">Effacer</a></p>
+    <p><a href="#">Modifier</a> |
+    <a href="#">Effacer</a></p>
     <p>Voir <a href="{% url 'ticket_list' %}">tous les tickets</a>.</p>
 {% endblock content %}
