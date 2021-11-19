@@ -2,12 +2,11 @@
 
 
 {% block title %}
-    Profiles to follow
+    Détail Profil
 {% endblock title %}
 
 
 {% block content %}
-    {% for profile in profiles %}
         
         <div class="card">
                     
@@ -23,11 +22,8 @@
             </div>
             
             <div class="card-body">
-                
-                <h6>{{profile}}</h6>
-                <a type="btn" href="{% url 'profiles:profile-detail-view' profile.pk %}" class="btn btn-primary">Voir profil</a>
-
+                <p class="">{{object}}</p>
             </div>
     </div>
-    {% endfor %}
+
 {% endblock content %}

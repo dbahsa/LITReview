@@ -13,10 +13,27 @@
             {% if user.is_authenticated %}
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a type="btn"
-                            href="{% url 'ticket_new' %}" 
-                            class="btn btn-outline-success">Demander une critique</a>
+                        <a href="{% url 'ticket_new' %}">Demander Critique</a>
                     </li>
+                    <li class="nav-item">
+                        <span>&nbsp;|&nbsp;</span>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'review_new' %}">Créer Critique</a>
+                    </li>
+                    <li class="nav-item">
+                        <span>&nbsp;|&nbsp;</span>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'ticket_list' %}">Flux</a>
+                    </li>
+                    <li class="nav-item">
+                        <span>&nbsp;|&nbsp;</span>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'profiles:profile-list-view' %}">Profils</a>
+                    </li>
+
                 </ul>
             {% endif %}
             <button 

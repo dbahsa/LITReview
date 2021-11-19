@@ -11,4 +11,12 @@ class ProfileListView(ListView):
     def get_queryset(self):
         # getting all the profiles w/o the one that belongs to the logged-in user
         return Profile.objects.all().exclude(user=self.request.user)
+class ProfileDetailView(DetailView):
+    model = Profile
+    template_name = 'profiles/detail.html'
+    context_object_name = 'profiles' # object_list as default
+
+    def get_queryset(self):
+        # getting all the profiles w/o the one that belongs to the logged-in user
+        return Profile.objects.all().exclude(user=self.request.user)
 
