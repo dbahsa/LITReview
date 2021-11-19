@@ -22,8 +22,11 @@ from django.conf import settings
 from tickets.admin import admin_site
 
 
+
+
 urlpatterns = [
     path('admin/', admin_site.urls),
+    path('profiles/', include('profiles.urls', namespace='profiles')),
     path('users/', include('users.urls')),
     path('users/', include('django.contrib.auth.urls')),
     path('tickets/', include('tickets.urls')), 
