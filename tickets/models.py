@@ -5,13 +5,15 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
 
+from profiles.models import Profile
+
 
 
 class Ticket(models.Model):
     title = models.CharField(max_length=128)
     description = models.TextField(max_length=2048, blank=True)
     # user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    author = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE)
     image = models.ImageField(null=True, blank=True)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
@@ -45,7 +47,7 @@ class Review(models.Model):
     rating = models.CharField(max_length=1, choices=RATINGS)
     # user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     # author = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE,)
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE,)
     headline = models.CharField(max_length=128) #, default=None, blank=True
     comment = models.TextField(max_length=8192, blank=True)
     updated = models.DateTimeField(auto_now=True)

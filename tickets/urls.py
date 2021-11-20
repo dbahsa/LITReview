@@ -23,6 +23,6 @@ urlpatterns = [
     # path('<int:pk>/', TicketDetailView.as_view(), name='review_detail'),
     # path('<int:pk>/delete/', TicketDeleteView.as_view(), name='review_delete'),
     path('review_new/', create_review, name='review_new'), # OK
-    # path('<int:pk>/review_new/', create_review, name='review_new'),
+    path('<int:pk>/review_edit/', create_review, name='review_edit'),
     # path('review_new/', ReviewCreateView.as_view(), name='review_new'),
 ]

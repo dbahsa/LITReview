@@ -17,12 +17,12 @@
             <div class="card">
                     
                     <div class="card-header">
-                        <span class="text-muted">{{ ticket.author.first_name }} a demandé une critique</span>
+                        <span class="text-muted">{{ ticket.author }} a demandé une critique</span>
                         <span class="text-muted float-right" style="font-size:0.7rem;">{{ ticket.created|date:"H:i" }}, {{ ticket.created|date:"d b Y" }}</span>
                         
                         {% if ticket.comments.first %}
                             <p style="margin-bottom:0;">
-                                <span class="text-muted">Critique de {{ ticket.comments.first.author.first_name }}: </span>
+                                <span class="text-muted">Critique de {{ ticket.comments.first.author }}: </span>
                                 <span class="font-weight-bold font-italic">'{{ ticket.comments.first.headline }}' </span> - {{ ticket.comments.first.rating }}
                             </p>
                             <!-- <p style="margin-bottom:0;">{{ ticket.comments.first }}</p> -->
@@ -50,7 +50,7 @@
                         {% endif %}
 
                         {% if not ticket.comments.first %}
-                            <a type="btn" href="{% url 'review_new' %}" class="btn btn-outline-primary">Créer une critique</a>
+                            <a type="btn" href="{% url 'review_edit' ticket.pk %}" class="btn btn-outline-primary">Créer une critique</a>
                         {% endif %}
                     
                     </div>

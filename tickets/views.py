@@ -72,17 +72,20 @@ class TicketCreateView(LoginRequiredMixin, CreateView):
 
 
         
-def create_review(request):
+def create_review(request, pk):
+    # print(pk)
+    t = Ticket.objects.get(pk=pk)
+    # print(t)
     form = RateForm()
-    
+    form.instance.ticket = t
     if request.method == 'POST':
         form = RateForm(request.POST)
-        form.instance.user = request.user
+        form.instance.author = request.user
         if form.is_valid():
             form.save()
         return render(request, 'ticket_list.html')
-
-    context = {'form': form}
+    # print(form)
+    context = {'form': form, 'pk':pk}
     return render(request, 'review_new.html', context)
 
 

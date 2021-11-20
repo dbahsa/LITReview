@@ -1,29 +1,73 @@
 {% extends 'base.html' %}
 
 
-{% block title %}
-    Détail Profil
-{% endblock title %}
+{% block title %}Détail Profil{% endblock title %}
 
 
 {% block content %}
-        
-        <div class="card">
-                    
-            <div class="card-header">
-                <span class="text-muted"></span>
-                <span class="text-muted float-right" style="font-size:0.7rem;"></span>
-                
-                    <p style="margin-bottom:0;">
-                        <span class="font-weight-bold"></span>
-                    </p>
-                    <p style="margin-bottom:0;"></p>
 
+<!-- add a modal -->
+
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Souhaitez-vous suivre {{object}} ?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            
-            <div class="card-body">
-                <p class="">{{object}}</p>
+            <div class="modal-body">
+                <p>En cliquant sur 'Confirmer' vous pourrez voir les tickets publiés par {{object}}.</p>
             </div>
+            <div class="modal-footer">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="profile_pk" value={{object.pk}}>
+                    <button type="submit" class="btn btn-success">Confirmer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-3">
+            {{object}}
+            <hr>
+            {% if follow %}
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="profile_pk" value={{object.pk}}>
+                    <button type="submit" class="btn btn-danger"> Unfollow</button>
+                </form>
+            {% else %}
+                <button id="follow-btn" class="btn btn-success">Follow</button>
+            {% endif %}
+        </div>
+        <div class="col-9">
+            {% for ticket in object.profiles_tickets %}
+                {{ticket.description}}
+            {% endfor %}
+        </div>
     </div>
 
+</div>
+            
+            
+            
 {% endblock content %}
+
+{% block scripts %}
+    <!-- this script enables the following modal -->
+    <script>
+        $(document).ready(function(){
+            $('#follow-btn').click(function(){
+                $('.modal')
+                .modal('show')
+            })
+        })
+    </script>
+{% endblock scripts %}

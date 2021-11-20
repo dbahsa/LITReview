@@ -14,7 +14,7 @@ class RateForm(forms.ModelForm):
     class Meta:
         model = Review
         # fields = "__all__"
-        fields = ('ticket', 'rate', 'headline', 'comment')
+        fields = ('ticket', 'rating', 'headline', 'comment')
 
     
     def __init__(self, *args, **kwargs):
