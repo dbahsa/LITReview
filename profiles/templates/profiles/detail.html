@@ -21,7 +21,7 @@
                 <p>En cliquant sur 'Confirmer' vous pourrez voir les tickets publiés par {{object}}.</p>
             </div>
             <div class="modal-footer">
-                <form action="" method="POST">
+                <form action="{% url 'profiles:follow-unfollow-view' %}" method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="profile_pk" value={{object.pk}}>
                     <button type="submit" class="btn btn-success">Confirmer</button>
@@ -38,7 +38,7 @@
             {{object}}
             <hr>
             {% if follow %}
-                <form action="" method="POST">
+                <form action="{% url 'profiles:follow-unfollow-view' %}" method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="profile_pk" value={{object.pk}}>
                     <button type="submit" class="btn btn-danger"> Unfollow</button>
