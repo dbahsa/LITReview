@@ -44,7 +44,7 @@ class Review(models.Model):
         )
     ticket = models.ForeignKey(to=Ticket, on_delete=models.CASCADE, related_name='comments', null=True)
     # rating = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)], choices=RATINGS, null=True)
-    rating = models.CharField(max_length=1, choices=RATINGS)
+    rating = models.IntegerField(max_length=1, choices=RATINGS)
     # user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     # author = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     author = models.ForeignKey(Profile, on_delete=models.CASCADE,)

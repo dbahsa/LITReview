@@ -3,8 +3,6 @@ from django.contrib.auth.mixins import (
     UserPassesTestMixin
 )
 
-# from django.contrib.auth.models import User
-
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from django.urls import reverse_lazy
@@ -116,3 +114,12 @@ def create_review(request, pk):
     #     reverse=True
     # )
     # return render(request, 'feed.html', context={'posts': posts})
+
+
+#####################################
+# create view for profiles tickects #
+#####################################
+
+# def tickets_of_following_profiles(request):
+#     return render(request, 'tickets/main.html', {})
+

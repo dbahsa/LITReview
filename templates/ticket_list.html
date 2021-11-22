@@ -22,8 +22,15 @@
                         
                         {% if ticket.comments.first %}
                             <p style="margin-bottom:0;">
-                                <span class="text-muted">Critique de {{ ticket.comments.first.author }}: </span>
-                                <span class="font-weight-bold font-italic">'{{ ticket.comments.first.headline }}' </span> - {{ ticket.comments.first.rating }}
+                                <span class="text-muted">Critique de {{ ticket.comments.first.author }}:&nbsp;</span>
+                                <span class="font-weight-bold font-italic">'{{ ticket.comments.first.headline }}'&nbsp;&nbsp;</span>
+                                <!-- <span class="font-weight-bold font-italic">- {{ ticket.comments.first.rating }}-</span> -->
+                                <span class="fa {% if ticket.comments.first.rating >= 1 %} fa-star {% else %} fa-star-o {% endif%}"></span>
+                                <span class="fa {% if ticket.comments.first.rating >= 2 %} fa-star {% else %} fa-star-o {% endif%}"></span>
+                                <span class="fa {% if ticket.comments.first.rating >= 3 %} fa-star {% else %} fa-star-o {% endif%}"></span>
+                                <span class="fa {% if ticket.comments.first.rating >= 4 %} fa-star {% else %} fa-star-o {% endif%}"></span>
+                                <span class="fa {% if ticket.comments.first.rating >= 5 %} fa-star {% else %} fa-star-o {% endif%}"></span>
+
                             </p>
                             <!-- <p style="margin-bottom:0;">{{ ticket.comments.first }}</p> -->
                             

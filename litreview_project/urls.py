@@ -29,7 +29,8 @@ urlpatterns = [
     path('profiles/', include('profiles.urls', namespace='profiles')),
     path('users/', include('users.urls')),
     path('users/', include('django.contrib.auth.urls')),
-    path('tickets/', include('tickets.urls')), 
+    path('tickets/', include('tickets.urls')), ## OK OK
+    # path('tickets/', include('tickets.urls', namespace='tickets')), 
     path('', include('pages.urls')),
 ]
 
