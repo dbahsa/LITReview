@@ -35,19 +35,19 @@ class Ticket(models.Model):
 # Ticket Review
 class Review(models.Model):
     RATINGS = (
-            ('0', '- 0'),
-            ('1', '- 1'),
-            ('2', '- 2'),
-            ('3', '- 3'),
-            ('4', '- 4'),
-            ('5', '- 5'),
+            ('0', '0'),
+            ('1', '1'),
+            ('2', '2'),
+            ('3', '3'),
+            ('4', '4'),
+            ('5', '5'),
         )
     ticket = models.ForeignKey(to=Ticket, on_delete=models.CASCADE, related_name='comments', null=True)
-    # rating = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)], choices=RATINGS, null=True)
-    rating = models.IntegerField(max_length=1, choices=RATINGS)
+    rating = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)], choices=RATINGS)
+    # rating = models.IntegerField(choices=RATINGS)
     # user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    # author = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    author = models.ForeignKey(Profile, on_delete=models.CASCADE,)
+    author = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    # author = models.ForeignKey(Profile, on_delete=models.CASCADE,)
     headline = models.CharField(max_length=128) #, default=None, blank=True
     comment = models.TextField(max_length=8192, blank=True)
     updated = models.DateTimeField(auto_now=True)
