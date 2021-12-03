@@ -6,9 +6,10 @@
 
 
 {% block content %}
-    <h1>Créer une critique (nouvelle critique)</h1>
+    <h1>Créer une critique (nouvelle1 critique)</h1>
     <hr>
     <h2>{{ pk }}</h2>
+
     {% crispy form %}
     <a href="{% url 'ticket_list' %}" >Annuler</a>
     <!-- <form action="{% url 'review_new' %}" method="post" enctype="multipart/form-data">

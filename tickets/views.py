@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
-    UserPassesTestMixin
+    UserPassesTestMixin,
 )
 
 from django.views.generic import ListView, DetailView
@@ -9,18 +9,17 @@ from django.urls import reverse_lazy
 
 from .models import Ticket #, Review
 
-from django.shortcuts import render
-from .forms import RateForm
+from django.shortcuts import render, get_object_or_404, redirect
+# from .forms import RateForm
+from django.contrib import messages
 
 ##
-from django.template.context_processors import csrf
+
 from crispy_forms.utils import render_crispy_form
 from django.http import HttpResponse
-import json
-
-from django.db.models import CharField, Value
 
 ##
+
 
 class TicketListView(LoginRequiredMixin, ListView):
     model = Ticket
@@ -35,7 +34,8 @@ class TicketDetailView(LoginRequiredMixin, DetailView):
     login_url = 'login'
 
 
-class TicketUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+# class TicketUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class TicketUpdateView(LoginRequiredMixin, UpdateView):
     model = Ticket
     fields = ('title', 'description', 'image')
     template_name = 'ticket_edit.html'
@@ -69,51 +69,71 @@ class TicketCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
+
+############# DEV AFTER DEC 2 ##################
+
+# def search(request):
+#     if 'keyword' in request.GET:
+#         keyword = request.GET['keyword']
+#         if keyword:
+#             products = Product.objects.order_by('-created_date').filter(Q(description__icontains=keyword) | Q(product_name__icontains=keyword))
+#             product_count = products.count()
+#     context = {
+#         'products': products,
+#         'product_count': product_count,
+#     }
+#     return render(request, 'store/store.html', context)
+
+
+
+
+# def submit_review(request, product_id):
+#     """review function"""
+#     url = request.META.get('HTTP_REFERER')
+#     if request.method == 'POST':
+#         try:
+#             reviews = ReviewRating.objects.get(user__id=request.user.id, product__id=product_id)
+#             form = ReviewForm(request.POST, instance=reviews)
+#             form.save()
+#             messages.success(request, 'Thank you! Your review has been updated.')
+#             return redirect(url)
+#         except ReviewRating.DoesNotExist:
+#             form = ReviewForm(request.POST)
+#             if form.is_valid():
+#                 data = ReviewRating()
+#                 data.subject = form.cleaned_data['subject']
+#                 data.rating = form.cleaned_data['rating']
+#                 data.review = form.cleaned_data['review']
+#                 data.ip = request.META.get('REMOTE_ADDR')
+#                 data.product_id = product_id
+#                 data.user_id = request.user.id
+#                 data.save()
+#                 messages.success(request, 'Thank you! Your review has been submitted.')
+#                 return redirect(url)
+
+
+
+
+
+########### DEV BEFORE DEC 2 ####################
         
-def create_review(request, pk):
-    # print(pk)
-    t = Ticket.objects.get(pk=pk)
-    # print(t)
-    form = RateForm()
-    form.instance.ticket = t
-    if request.method == 'POST':
-        form = RateForm(request.POST)
-        form.instance.author = request.user
-        if form.is_valid():
-            form.save()
-        return render(request, 'ticket_list.html')
-    # print(form)
-    context = {'form': form, 'pk':pk}
-    return render(request, 'review_new.html', context)
+# def create_review(request, pk):
+#     # print(pk)
+#     t = Ticket.objects.get(pk=pk)
+#     # print(t)
+#     form = RateForm()
+#     form.instance.ticket = t
+#     if request.method == 'POST':
+#         form = RateForm(request.POST)
+#         form.instance.author = request.user
+#         if form.is_valid():
+#             form.save()
+#         return render(request, 'ticket_list.html')
+#     # print(form)
+#     context = {'form': form, 'pk':pk}
+#     # return render(request, 'ticket_detail.html', context)
+#     return render(request, 'review_new.html', context) ## ok
 
-
-
-    ## functional codes
-    # form = RateForm()
-    # if request.method == 'POST':
-    #     form = RateForm(request.POST)
-    #     form.instance.user = request.user
-    #     if form.is_valid():
-    #         form.save()
-    #     return render(request, 'ticket_list.html')
-    # context = {'form': form}
-    # return render(request, 'review_new.html', context)
-    
-
-    ## from help doc
-    # reviews = get_users_viewable_reviews(request.user)
-    # # returns queryset of reviews
-    # reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
-    # tickets = get_users_viewable_tickets(request.user)
-    # # returns queryset of tickets
-    # tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
-    # # combine and sort the two types of posts
-    # posts = sorted(
-    #     chain(reviews, tickets),
-    #     key=lambda post: post.time_created,
-    #     reverse=True
-    # )
-    # return render(request, 'feed.html', context={'posts': posts})
 
 
 #####################################

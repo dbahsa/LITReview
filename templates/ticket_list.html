@@ -8,10 +8,10 @@
 {% block content %}
     <div class="text-center">
         <a type="btn" href="{% url 'ticket_new' %}" class="btn btn-outline-primary">Demander une critique</a>
-        <a type="btn" href="{% url 'review_new' %}" class="btn btn-outline-primary">Créer une critique</a>
+        <a type="btn" href="" class="btn btn-outline-primary">Créer une critique</a>
     </div>
     <br/>
-    {% if ticket_list %}
+    {% if ticket_list and user.is_authenticated %}
         
         {% for ticket in ticket_list %}
             <div class="card">
@@ -51,13 +51,20 @@
                             <img class="image" src="/static/images/{{ ticket.image }}"  alt="livre ou article" style="max-width: 300px;"/>
                         {% endif %}
                         
-                        {% if user.is_authenticated and user == ticket.author %}
+                        {% if user == ticket.author %}
                             <a href="{% url 'ticket_edit' ticket.pk %}">Modifier</a> |
                             <a href="{% url 'ticket_delete' ticket.pk %}">Effacer</a>
                         {% endif %}
+                        <br>
+                        <span>utilisateur: {{ user }}</span> <br>
+                        <span>auteur ticket: {{ ticket.author }}</span><br>
+                        <span>auteur review: {{ ticket.comments.first.author }}</span><br>
+                            <!-- <a href="{% url 'ticket_edit' ticket.pk %}">Modifier</a> |
+                            <a href="{% url 'ticket_delete' ticket.pk %}">Effacer</a> -->
+                        
 
                         {% if not ticket.comments.first %}
-                            <a type="btn" href="{% url 'review_edit' ticket.pk %}" class="btn btn-outline-primary">Créer une critique</a>
+                            <a type="btn" href="" class="btn btn-outline-primary">Créer une critique</a>
                         {% endif %}
                     
                     </div>

@@ -6,14 +6,73 @@
 {% block content %}
     <div class="ticket-entry">
         <h2>{{ object.title }}</h2>
-        <p>by {{ object.user }} | {{ object.date }}</p>
+        <p>by {{ object.author }} | {{ object.created }}</p>
         <p>{{ object.description }}</p>
         {% if ticket.image %}
         <img class="image" src="/static/images/{{ ticket.image }}" style="max-width: 300px;"/>
         {% endif %}
     </div>
-
+    
+    <br>
     <p><a href="{% url 'ticket_edit' ticket.pk %}">Modifier</a> |
     <a href="{% url 'ticket_delete' ticket.pk %}">Effacer</a></p>
+    
     <p>Voir <a href="{% url 'ticket_list' %}">tous les tickets</a>.</p>
+
+    <hr>
+    <!-- REVIEW FORM -->
+    
+    <h5>Critique</h5>
+    <br>
+    <form action="" method="POST">
+        {% csrf_token %}
+        
+        <div>
+            <label for="ratingtitle">Titre</label>
+            <input type="text" class="form-control" name="subject" id="ratingtitle">
+            <br>
+            <!-- Rating stars -->
+            <label>Note</label>
+            <br>
+            <div class="rate">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                    <label class="form-check-label" for="inlineRadio1"> - 1</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                    <label class="form-check-label" for="inlineRadio2"> - 2</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                    <label class="form-check-label" for="inlineRadio3"> - 3</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4">
+                    <label class="form-check-label" for="inlineRadio4"> - 4</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="option5">
+                    <label class="form-check-label" for="inlineRadio5"> - 5</label>
+                </div>
+            </div>
+            
+            <!-- REVIEW CONTENT -->
+            <br>
+            Commentaire
+            <textarea name="review" rows="4" class="form-control"></textarea>
+            <br>
+            
+                    <input type="submit" value="Envoyer" class="btn btn-primary">
+                
+                    <p>You must purchase this product to post a review.</p>
+            
+            <p>Vous devez être connecté.e pour être capable de noter ce ticket.<span><a href="{% url 'login' %}"> Se connecter</a></span></p>
+            
+
+        </div>
+
+    </form>
+
+
 {% endblock content %}
