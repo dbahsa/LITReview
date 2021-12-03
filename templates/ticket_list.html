@@ -22,14 +22,15 @@
                         
                         {% if ticket.comments.first %}
                             <p style="margin-bottom:0;">
-                                <span class="text-muted">Critique de {{ ticket.comments.first.author }}:&nbsp;</span>
-                                <span class="font-weight-bold font-italic">'{{ ticket.comments.first.headline }}'&nbsp;&nbsp;</span>
-                                <!-- <span class="font-weight-bold font-italic">- {{ ticket.comments.first.rating }}-</span> -->
+                                <span class="text-muted">Critique de {{ ticket.comments.first.user }}:&nbsp;</span>
+                                <span class="font-weight-bold font-italic">'{{ ticket.comments.first.subject }}'&nbsp;&nbsp;</span>
                                 <span class="fa {% if ticket.comments.first.rating >= 1 %} fa-star {% else %} fa-star-o {% endif%}"></span>
                                 <span class="fa {% if ticket.comments.first.rating >= 2 %} fa-star {% else %} fa-star-o {% endif%}"></span>
                                 <span class="fa {% if ticket.comments.first.rating >= 3 %} fa-star {% else %} fa-star-o {% endif%}"></span>
                                 <span class="fa {% if ticket.comments.first.rating >= 4 %} fa-star {% else %} fa-star-o {% endif%}"></span>
                                 <span class="fa {% if ticket.comments.first.rating >= 5 %} fa-star {% else %} fa-star-o {% endif%}"></span>
+
+                                <span class="font-weight-bold font-italic">- {{ ticket.comments.first.review|truncatechars:15}}-</span>
 
                             </p>
                             <!-- <p style="margin-bottom:0;">{{ ticket.comments.first }}</p> -->
@@ -58,7 +59,7 @@
                         <br>
                         <span>utilisateur: {{ user }}</span> <br>
                         <span>auteur ticket: {{ ticket.author }}</span><br>
-                        <span>auteur review: {{ ticket.comments.first.author }}</span><br>
+                        <span>auteur review: {{ ticket.comments.first.user }}</span><br>
                             <!-- <a href="{% url 'ticket_edit' ticket.pk %}">Modifier</a> |
                             <a href="{% url 'ticket_delete' ticket.pk %}">Effacer</a> -->
                         
