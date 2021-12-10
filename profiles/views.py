@@ -5,6 +5,7 @@ from .models import Profile
 
 
 def follow_unfollow_profile(request):
+    """function to unfollow"""
     if request.method=="POST":
         my_profile = Profile.objects.get(user=request.user)
         pk = request.POST.get('profile_pk')
@@ -25,6 +26,8 @@ class ProfileListView(ListView):
     def get_queryset(self):
         # getting all the profiles w/o the one that belongs to the logged-in user
         return Profile.objects.all().exclude(user=self.request.user)
+
+
 class ProfileDetailView(DetailView):
     model = Profile
     template_name = 'profiles/detail.html'

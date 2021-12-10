@@ -6,7 +6,6 @@ from django.conf import settings
 class Profile(models.Model):
     user = models.OneToOneField(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     following = models.ManyToManyField(to=settings.AUTH_USER_MODEL, related_name='following', blank=True)
-    bio = models.TextField(default='no bio so far...')
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
@@ -18,3 +17,10 @@ class Profile(models.Model):
 
     class Meta:
         ordering = ('-created',)
+
+    # class Meta:
+    #     constraints = [
+    #         models.UniqueConstraint(fields=['user','following'],  name="unique_comments")
+    #     ]
+    ## or use so that there can be only one ticket/user
+        # unique_together = ('user', 'following', ) ## deprecated!!!

@@ -12,6 +12,8 @@ from django.db.models import Q
 from .models import Ticket, ReviewRating
 from profiles.models import Profile
 from itertools import chain
+from django.contrib.auth import get_user_model 
+
 
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import ReviewForm
@@ -119,8 +121,10 @@ def tickets_of_following_profiles(request):
     # sort and chain querysets and unpack the tickets list
     if len(tickets)>0:
         qs = sorted(chain(*tickets), reverse=True, key=lambda obj: obj.created)
-    return render(request, 'tickets/main.html', {'profile':profile, 'tickets': qs})
-
+    # get all users
+    all_users = get_user_model().objects.values()
+    context= {'profile':profile, 'tickets': qs, 'allusers': all_users}
+    return render(request, 'tickets/main.html', context)
 
 
 # def search(request):
@@ -134,3 +138,4 @@ def tickets_of_following_profiles(request):
 #         'ticket_count': ticket_count,
 #     }
 #     return render(request, 'store/store.html', context)
+
