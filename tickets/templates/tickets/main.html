@@ -10,5 +10,35 @@ Main Posts
 {% block content %}
 Les tickets de l'utilisateur et ceux de ses followers/ing
 <hr>
-{{tickets}}
+<div class="container">
+    <div class="row">
+        <div class="col-2">
+            {{ profile }}
+            <br><br>
+            <a href="{% url 'profiles:profile-list-view' %}">
+                <button type="button" class="btn btn-primary">People to follow</button>
+            </a>
+            <br><br>
+            Following:
+            <ul>
+                {% for p in profile.following.all %}
+                <li>{{p}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-10">
+            Tickets:
+            <hr>
+            {% for t in tickets %}
+                {% if profile != t.author %}
+                <b>{{t.author}}</b>
+                <br>
+                {{t.description}}
+                <hr>
+                {% endif %}
+
+            {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock content %}

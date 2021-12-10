@@ -11,6 +11,7 @@ from django.db.models import Q
 
 from .models import Ticket, ReviewRating
 from profiles.models import Profile
+from itertools import chain
 
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import ReviewForm
@@ -115,7 +116,10 @@ def tickets_of_following_profiles(request):
     # get our own tickets
     my_tickets = profile.profiles_tickets()
     tickets.append(my_tickets)
-    return render(request, 'tickets/main.html', {'tickets': tickets})
+    # sort and chain querysets and unpack the tickets list
+    if len(tickets)>0:
+        qs = sorted(chain(*tickets), reverse=True, key=lambda obj: obj.created)
+    return render(request, 'tickets/main.html', {'profile':profile, 'tickets': qs})
 
 
 
