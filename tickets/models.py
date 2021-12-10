@@ -32,7 +32,7 @@ class Ticket(models.Model):
         ordering = ['-created']
 
 
-################ AFTER DEC 2 DEV ######################
+################ CURRENTLY ######################
 
 class ReviewRating(models.Model):
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE, related_name='comments')
@@ -46,7 +46,7 @@ class ReviewRating(models.Model):
         return self.subject
 
 
-################ BEFORE DEC 2 DEV ######################
+################ FORMERLY ######################
 # Ticket Review
 # class Review(models.Model):
 #     RATINGS = (

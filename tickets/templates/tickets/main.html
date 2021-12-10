@@ -2,9 +2,13 @@
 {% extends 'base.html' %}
 
 
-{% block title %} Les Tickets {% endblock title %}
+{% block title %}
+Main Posts
+{% endblock title %}
 
 
 {% block content %}
-tickets
+Les tickets de l'utilisateur et ceux de ses followers/ing
+<hr>
+{{tickets}}
 {% endblock content %}

@@ -10,6 +10,7 @@ from django.urls import reverse_lazy
 from django.db.models import Q
 
 from .models import Ticket, ReviewRating
+from profiles.models import Profile
 
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import ReviewForm
@@ -96,6 +97,28 @@ def submit_review(request, pk):
                 return redirect(url)
 
 
+
+def tickets_of_following_profiles(request):
+    """view for user dashboard"""
+    # get logged-in user profile
+    profile = Profile.objects.get(user=request.user)
+    # check who's being followed
+    users = [user for user in profile.following.all()]
+    # initial value for variables
+    tickets = []
+    qs= None
+    # get tickets of people we are following
+    for dude in users:
+        p = Profile.objects.get(user=dude)
+        p_tickets = p.ticket_set.all()
+        tickets.append(p_tickets)
+    # get our own tickets
+    my_tickets = profile.profiles_tickets()
+    tickets.append(my_tickets)
+    return render(request, 'tickets/main.html', {'tickets': tickets})
+
+
+
 # def search(request):
 #     if 'keyword' in request.GET:
 #         keyword = request.GET['keyword']
@@ -107,15 +130,3 @@ def submit_review(request, pk):
 #         'ticket_count': ticket_count,
 #     }
 #     return render(request, 'store/store.html', context)
-
-
-
-
-
-#####################################
-# create view for profiles tickects #
-#####################################
-
-# def tickets_of_following_profiles(request):
-#     return render(request, 'tickets/main.html', {})
-
