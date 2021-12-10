@@ -59,10 +59,10 @@
                         <br>
                         <span>visiteur: {{ user }}</span> <br>
                         <span>auteur ticket: {{ ticket.author }}</span><br>
-                        <span>auteur review: {{ ticket.comments.first.user }}</span><br>
+                        <span>auteur review: {{ ticket.comments.user }}</span><br>
                         
                         {% if not ticket.comments.first %}
-                            <a type="btn" href="" class="btn btn-outline-primary">Créer une critique</a>
+                            <a type="btn" href="{% url 'ticket_detail' ticket.pk %}" class="btn btn-outline-primary">Créer une critique</a>
                         {% endif %}
                     
                     </div>

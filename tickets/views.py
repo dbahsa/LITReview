@@ -71,9 +71,6 @@ class TicketCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-
-############# DEV AFTER DEC 2 ##################
-
 # replace ticket_id by pk
 def submit_review(request, pk):
     """review function"""
@@ -112,27 +109,6 @@ def submit_review(request, pk):
 #     return render(request, 'store/store.html', context)
 
 
-
-
-
-########### DEV BEFORE DEC 2 ####################
-        
-# def create_review(request, pk):
-#     # print(pk)
-#     t = Ticket.objects.get(pk=pk)
-#     # print(t)
-#     form = RateForm()
-#     form.instance.ticket = t
-#     if request.method == 'POST':
-#         form = RateForm(request.POST)
-#         form.instance.author = request.user
-#         if form.is_valid():
-#             form.save()
-#         return render(request, 'ticket_list.html')
-#     # print(form)
-#     context = {'form': form, 'pk':pk}
-#     # return render(request, 'ticket_detail.html', context)
-#     return render(request, 'review_new.html', context) ## ok
 
 
 
