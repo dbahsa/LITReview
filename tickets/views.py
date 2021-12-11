@@ -12,6 +12,7 @@ from django.db.models import Q
 from .models import Ticket, ReviewRating
 from profiles.models import Profile
 from itertools import chain
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model 
 
 
@@ -75,7 +76,7 @@ class TicketCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-# replace ticket_id by pk
+@login_required
 def submit_review(request, pk):
     """review function"""
     url = request.META.get('HTTP_REFERER') # 'url' so that the user redirect to 'ticket detail' page
@@ -100,7 +101,7 @@ def submit_review(request, pk):
                 return redirect(url)
 
 
-
+@login_required
 def tickets_of_following_profiles(request):
     """view for user dashboard"""
     # get logged-in user profile

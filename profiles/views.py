@@ -1,9 +1,14 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from .models import Profile
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    UserPassesTestMixin,
+)
 
 
-
+@login_required
 def follow_unfollow_profile(request):
     """function to unfollow"""
     if request.method=="POST":
@@ -18,19 +23,21 @@ def follow_unfollow_profile(request):
     return redirect('profiles:profile-list-view')
     
 
-class ProfileListView(ListView):
+class ProfileListView(LoginRequiredMixin, ListView):
     model = Profile
     template_name = 'profiles/main.html'
     context_object_name = 'profiles' # object_list as default
+    login_url = 'login'
 
     def get_queryset(self):
         # getting all the profiles w/o the one that belongs to the logged-in user
         return Profile.objects.all().exclude(user=self.request.user)
 
 
-class ProfileDetailView(DetailView):
+class ProfileDetailView(LoginRequiredMixin, DetailView):
     model = Profile
     template_name = 'profiles/detail.html'
+    login_url = 'login'
 
     def get_object(self, **kwargs):
         pk = self.kwargs.get('pk')
