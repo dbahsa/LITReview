@@ -26,23 +26,12 @@ Les tickets de l'utilisateur et ceux de ses followers/ing
                 {% endfor %}
             </ul>
             <hr>
+            Followers: <br>
             <ul>
-                {% for p in profile.following.all %}
-                <li>{{p}}</li>
+                {% for dude in user.following.all %}
+                <li>{{dude}}</li>
                 {% endfor %}
             </ul>
-            <hr>
-            All Users:
-            <!-- if a user not in profile.following.all, so he/she belongs to followers -->
-            <ul>
-                {% for u in allusers.all  %}
-
-                        <li>{{u.username}}</li>
-
-                {% endfor %}
-            </ul>
-            <hr>
-            Followers: <br> To be Added Soon!!!
         </div>
         <div class="col-5">
             User Tickets:
