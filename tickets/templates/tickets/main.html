@@ -8,12 +8,33 @@ Main Posts
 
 
 {% block content %}
-Les tickets de l'utilisateur et ceux de ses followers/ing
+
+<!-- search bar -->
+<br><br>
+<div class="container">
+    <form class="form-inline">
+        <input class="form-control mr-sm-2" name="keyword" type="search" placeholder="Nom d'utilisateur" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Envoyer</button>
+    </form>
+</div>
+<br>
+Searched users:
+<ul>
+    {% for p in searchedprofile %}
+    <li>{{p}}</li>
+    {% endfor %}
+</ul>
+<hr>
+<hr>
+<br><br>
+
+<!-- User content -->
+Les tickets de l'utilisateur et ceux de personnes qu'il suit
 <hr>
 <div class="container">
     <div class="row">
         <div class="col-2">
-            Visiteur: {{ profile }}
+            Compte de: {{ profile }}
             <br><br>
             <a href="{% url 'profiles:profile-list-view' %}">
                 <button type="button" class="btn btn-primary">People to follow</button>
@@ -28,8 +49,8 @@ Les tickets de l'utilisateur et ceux de ses followers/ing
             <hr>
             Followers: <br>
             <ul>
-                {% for dude in user.following.all %}
-                <li>{{dude}}</li>
+                {% for follower in user.following.all %}
+                <li>{{follower}}</li>
                 {% endfor %}
             </ul>
         </div>

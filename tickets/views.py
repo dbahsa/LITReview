@@ -128,15 +128,22 @@ def tickets_of_following_profiles(request):
     return render(request, 'tickets/main.html', context)
 
 
-# def search(request):
-#     if 'keyword' in request.GET:
-#         keyword = request.GET['keyword']
-#         if keyword:
-#             tickets = ticket.objects.order_by('-created_date').filter(Q(description__icontains=keyword) | Q(ticket_name__icontains=keyword))
-#             ticket_count = tickets.count()
-#     context = {
-#         'tickets': tickets,
-#         'ticket_count': ticket_count,
-#     }
-#     return render(request, 'store/store.html', context)
+def search(request):
+    """search bar"""
+    
+    if 'keyword' in request.GET:
+        keyword = request.GET['keyword']
+        multiple_keyword = Q(Q(user__icontains=keyword) | Q(following__icontains=keyword))
+        searched_profile = Profile.objects.filter(multiple_keyword)
+        # if keyword:
+        #     tickets = Ticket.objects.order_by('-created_at').filter(Q(description__icontains=keyword) | Q(ticket_name__icontains=keyword))
+        #     ticket_count = tickets.count()
+    else:
+        searched_profile = Profile.objects.all()
+        # searched_profile = get_user_model().objects.values()
+    
+    context = {
+        'searchedprofile': searched_profile,
+    }
+    return render(request, 'tickets/main.html', context)
 
