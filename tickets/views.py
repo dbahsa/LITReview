@@ -7,7 +7,9 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from django.urls import reverse_lazy
 
+from django.template import loader
 from django.db.models import Q
+from django.core.paginator import Paginator
 
 from .models import Ticket, ReviewRating
 from profiles.models import Profile
@@ -24,7 +26,7 @@ from django.contrib import messages
 
 from crispy_forms.utils import render_crispy_form
 from django.http import HttpResponse
-
+from django.contrib.auth.models import User
 ##
 
 
@@ -128,22 +130,12 @@ def tickets_of_following_profiles(request):
     return render(request, 'tickets/main.html', context)
 
 
-def search(request):
+@login_required
+def user_search(request):
     """search bar"""
-    
-    if 'keyword' in request.GET:
-        keyword = request.GET['keyword']
-        multiple_keyword = Q(Q(user__icontains=keyword) | Q(following__icontains=keyword))
-        searched_profile = Profile.objects.filter(multiple_keyword)
-        # if keyword:
-        #     tickets = Ticket.objects.order_by('-created_at').filter(Q(description__icontains=keyword) | Q(ticket_name__icontains=keyword))
-        #     ticket_count = tickets.count()
+    if request.method == "POST":
+        searched = request.POST['searched']
+        profiles = get_user_model().objects.filter(username__contains=searched)
+        return render(request, 'tickets/user_search.html', {'searched':searched, 'profiles':profiles} )
     else:
-        searched_profile = Profile.objects.all()
-        # searched_profile = get_user_model().objects.values()
-    
-    context = {
-        'searchedprofile': searched_profile,
-    }
-    return render(request, 'tickets/main.html', context)
-
+        return render(request, 'tickets/user_search.html', {} )

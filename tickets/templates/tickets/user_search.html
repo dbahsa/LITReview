@@ -1,0 +1,39 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+
+
+{% block title %}
+Main Posts
+{% endblock title %}
+
+
+{% block content %}
+
+<!-- search bar -->
+<br><br>
+<div class="container">
+    <form class="form-inline" method="POST" action="{% url 'user-search' %}">
+        {% csrf_token %}
+        <input class="form-control mr-sm-2" name="searched" type="search" placeholder="Nom d'utilisateur..." value="{{ request.GET.q }}" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Envoyer</button>
+    </form>
+</div>
+<br>
+Searched users:
+{% if searched %}
+<h1>You Searched for: {{ searched }} </h1>
+<br>
+{% for profile in profiles %}
+    {{ profile }} <br>
+{% endfor %}
+
+{% else %}
+<h1>You didn't make any search </h1> 
+{% endif %}
+    
+
+    
+
+
+
+{% endblock content %}

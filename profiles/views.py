@@ -54,3 +54,4 @@ class ProfileDetailView(LoginRequiredMixin, DetailView):
             follow = False
         context["follow"] = follow
         return context
+

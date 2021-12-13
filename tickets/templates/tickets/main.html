@@ -12,18 +12,23 @@ Main Posts
 <!-- search bar -->
 <br><br>
 <div class="container">
-    <form class="form-inline">
-        <input class="form-control mr-sm-2" name="keyword" type="search" placeholder="Nom d'utilisateur" aria-label="Search">
+    <form class="form-inline" method=POST action="{% url 'user-search' %}">
+        {% csrf_token %}
+        <input class="form-control mr-sm-2" name="searched" type="search" placeholder="Nom d'utilisateur..." value="{{ request.GET.q }}" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Envoyer</button>
     </form>
 </div>
-<br>
+<!-- <br>
 Searched users:
-<ul>
-    {% for p in searchedprofile %}
-    <li>{{p}}</li>
-    {% endfor %}
-</ul>
+
+    
+{% if searched %}
+    <h1>You Searched for {{searched}}</h1>
+{% else %}
+    <h1>Sorry! It doesn't work yet... </h1> 
+{% endif%} -->
+
+
 <hr>
 <hr>
 <br><br>

@@ -8,7 +8,7 @@ from .views import (
     TicketCreateView,
     submit_review,
     tickets_of_following_profiles,
-    search,
+    user_search,
     
 )
 
@@ -22,6 +22,6 @@ urlpatterns = [
     path('', TicketListView.as_view(), name='ticket_list'),
     path('submit_review/<int:pk>/', submit_review, name='submit_review'),
     path('account/', tickets_of_following_profiles, name='tickets-follow-view'),
-    path('account/', tickets_of_following_profiles, name='search'),
+    path('user_search/', user_search, name='user-search'),
 
 ]
