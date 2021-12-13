@@ -20,18 +20,20 @@ Main Posts
 </div>
 <br>
 Searched users:
-{% if searched %}
-<h1>You Searched for: {{ searched }} </h1>
-<br>
-{% for profile in profiles %}
-    {{ profile }} <br>
-{% endfor %}
+    {% if searched %}
+        <h1>You Searched for: {{ searched }} </h1>
+        <br>
+        {% for user in users %}
 
-{% else %}
-<h1>You didn't make any search </h1> 
-{% endif %}
+        <h6>{{user}}: ID°{{user.id}} // {{ user.date_joined}} // {{ user.profile.id}}</h6>
+        <a type="btn" href="{% url 'profiles:profile-detail-view' user.profile.id %}" class="btn btn-primary">Voir profil</a><br>
+        
+        {% endfor %}
+
+    {% else %}
+        <h1>You didn't make any search </h1> 
     
-
+    {% endif %}
     
 
 
