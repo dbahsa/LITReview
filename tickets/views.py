@@ -135,12 +135,7 @@ def user_search(request):
     """search bar"""
     if request.method == "POST":
         searched = request.POST['searched']
-        users = get_user_model().objects.filter(username__contains=searched) # Good Username
-        # users = get_user_model().objects.filter(username__contains=searched) 
-        # ids = Profile.objects.get(id__contains=searched) # Good ID link
-       
-
-        # users = Profile.objects.filter(ticket_title__contains=searched)
-        return render(request, 'tickets/user_search.html', {'searched':searched, 'users':users} ) #, 'users_id':users_id,  'ids':ids
+        users = get_user_model().objects.filter(username__contains=searched).exclude(username=request.user) # Good good
+        return render(request, 'tickets/user_search.html', {'searched':searched, 'users':users})
     else:
         return render(request, 'tickets/user_search.html', {} )

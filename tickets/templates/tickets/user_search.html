@@ -19,14 +19,20 @@ Main Posts
     </form>
 </div>
 <br>
+Compte de: {{ profile }}
+<hr>
 Searched users:
     {% if searched %}
         <h1>You Searched for: {{ searched }} </h1>
         <br>
         {% for user in users %}
 
-        <h6>{{user}}: ID°{{user.id}} // {{ user.date_joined}} // {{ user.profile.id}}</h6>
-        <a type="btn" href="{% url 'profiles:profile-detail-view' user.profile.id %}" class="btn btn-primary">Voir profil</a><br>
+            {% if not profile %}
+            
+            <h6>{{user}}: ID°{{user.id}} // {{ user.date_joined}} // {{ user.profile.id}}</h6>
+            <a type="btn" href="{% url 'profiles:profile-detail-view' user.profile.id %}" class="btn btn-primary">Voir profil</a><br>
+            
+            {% endif%}
         
         {% endfor %}
 
