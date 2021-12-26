@@ -46,17 +46,3 @@ class ReviewRating(models.Model):
     #     ]
     ## or use this so that there can be only one ticket/user
         # unique_together = ('ticket', 'user', ) ## deprecated!!!
-
-
-############# Table for follower/following relation
-
-# class UserFollows(models.Model):
-#     user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='following', null=True)
-#     followed_user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='followed_by', null=True)
-
-#     class Meta:
-#         # ensures we don't get multiple UserFollows instances
-#         # for unique user-user_followed pairs
-#         unique_together = ('user', 'followed_user', )
-#         verbose_name_plural = 'UserFollows'
-
