@@ -25,7 +25,21 @@
                     {% if user.is_authenticated %}
                         <ul class="navbar-nav ml-auto flex-nowrap" style="padding-top: 5px;">
                             <li class="nav-item">
-                                <a href="{% url 'feed' %}">Flux</a>
+                                <a href="{% url 'myfeed' %}">Mon Flux</a>
+                            </li>
+                            <li class="nav-item">
+                                <span >&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{% url 'othersfeed' %}">Others Flux</a>
+                            </li>
+                            <li class="nav-item">
+                                <span >&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{% url 'feed' %}">All Flux</a>
                             </li>
                             <li class="nav-item">
                                 <span >&nbsp;&nbsp;&nbsp;&nbsp;</span>

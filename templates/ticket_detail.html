@@ -68,10 +68,8 @@
                 <br>
                         <input type="submit" value="Envoyer" class="btn btn-primary">
                         <a class="btn btn-warning" href="{% url 'feed' %}" role="button">Retour</a>
-                        <!-- <p>You must purchase this product to post a review.</p> -->
                 <br>
                 <br>
-                <!-- <p class="text-muted">Vous devez être connecté.e pour être capable de noter ce ticket.<span><a href="{% url 'login' %}"> Se connecter</a></span></p> -->
                 
 
             </div>
@@ -81,7 +79,9 @@
     {% else %}
         <b>Ticket Commenté!</b>
         <br>
-        <a class="btn btn-warning" href="{% url 'feed' %}" role="button">Retour</a>
+        <!-- <a class="btn btn-warning" href="{% url 'feed' %}" role="button">Retour</a> -->
+        <a class="btn btn-warning" onClick="javascript:history.go(-1);" role="button">Retour</a>
+        
     {% endif %}
 
 

@@ -131,6 +131,59 @@ def tickets_of_following_profiles(request):
 
 
 @login_required
+def my_feed_tickets_of_following_profiles(request):
+    """view for user dashboard"""
+    # get logged-in user profile
+    profile = Profile.objects.get(user=request.user)
+    # check who's being followed
+    users = [user for user in profile.following.all()]
+    # initial value for variables
+    tickets = []
+    qs= None
+    # get tickets of people we are following
+    for dude in users:
+        p = Profile.objects.get(user=dude)
+        p_tickets = p.ticket_set.all()
+        tickets.append(p_tickets)
+    # get our own tickets
+    my_tickets = profile.profiles_tickets()
+    tickets.append(my_tickets)
+    # sort and chain querysets and unpack the tickets list
+    if len(tickets)>0:
+        qs = sorted(chain(*tickets), reverse=True, key=lambda obj: obj.created)
+    # get all users
+    all_users = get_user_model().objects.values()
+    context= {'profile':profile, 'tickets': qs, 'allusers': all_users}
+    return render(request, 'tickets/myfeed.html', context)
+
+@login_required
+def others_feed_tickets_of_following_profiles(request):
+    """view for user dashboard"""
+    # get logged-in user profile
+    profile = Profile.objects.get(user=request.user)
+    # check who's being followed
+    users = [user for user in profile.following.all()]
+    # initial value for variables
+    tickets = []
+    qs= None
+    # get tickets of people we are following
+    for dude in users:
+        p = Profile.objects.get(user=dude)
+        p_tickets = p.ticket_set.all()
+        tickets.append(p_tickets)
+    # get our own tickets
+    my_tickets = profile.profiles_tickets()
+    tickets.append(my_tickets)
+    # sort and chain querysets and unpack the tickets list
+    if len(tickets)>0:
+        qs = sorted(chain(*tickets), reverse=True, key=lambda obj: obj.created)
+    # get all users
+    all_users = get_user_model().objects.values()
+    context= {'profile':profile, 'tickets': qs, 'allusers': all_users}
+    return render(request, 'tickets/othersfeed.html', context)
+
+
+@login_required
 def user_search(request):
     """search bar"""
     if request.method == "POST":
