@@ -60,12 +60,7 @@
                                 </div>
                             </li>
                         </ul>
-                    {% else %}
-                        <form class="form-inline ml-auto">
-                            {% csrf_token %}
-                            <a href="{% url 'login' %}" class="btn btn-primary">Connectez-vous</a>
-                            <a href="{% url 'signup' %}" class="btn btn-warning ml-2">Inscrivez-vous maintenant</a>
-                        </form>
+
                     {% endif %}
             </div>
 

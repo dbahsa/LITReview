@@ -4,14 +4,27 @@
 
 {% block title %}Accueil{% endblock title %}
 
+
 {% block content %}
 
-<div class="jumbotron">
-    <h1 class="display-4">Site de critique littéraire</h1>
-    <p class="lead">Etude, discussion, évaluation et interprétation de la littérature</p>
-    <p class="lead">
-        <a class="btn btn-primary btn-lg" href="{% url 'ticket_list' %}" role="button">Voir toutes les critiques</a>
-    </p>
+<div class="container text-center" style="margin-top: 100px;">
+    <div class="jumbotron">
+    
+            <h3 class="display-4">Site de critique littéraire</h3>
+            
+            <p class="lead">Etude, discussion, évaluation et interprétation de la littérature</p>
+            
+            <p class="lead">
+                {% if user.is_authenticated %}
+                <a class="btn btn-warning" href="{% url 'ticket_list' %}" role="button">Voir toutes les critiques</a>
+                {% else %}
+                <a href="{% url 'login' %}" class="btn btn-success ml-2">Connectez-vous</a>
+                <a href="{% url 'signup' %}" class="btn btn-primary ml-2">Inscrivez-vous maintenant</a>
+                {% endif %}
+
+            </p>
+    
+    </div>
 </div>
 
 {% endblock content %}
