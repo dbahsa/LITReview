@@ -2,6 +2,8 @@
 {% extends 'base.html' %}
 
 
+{% load static %}
+
 {% block title %}
 Main Posts
 {% endblock title %}
@@ -18,15 +20,6 @@ Main Posts
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Envoyer</button>
     </form>
 </div>
-<!-- <br>
-Searched users:
-
-    
-{% if searched %}
-    <h1>You Searched for {{searched}}</h1>
-{% else %}
-    <h1>Sorry! It doesn't work yet... </h1> 
-{% endif%} -->
 
 
 <hr>
@@ -38,6 +31,8 @@ Les tickets de l'utilisateur et ceux de personnes qu'il suit
 <hr>
 <div class="container">
     <div class="row">
+        
+        <!-- LIST OF FOLLOWED PEOPLE AND FOLLOWERS -->
         <div class="col-2">
             Compte de: {{ profile }}
             <br><br>
@@ -59,26 +54,69 @@ Les tickets de l'utilisateur et ceux de personnes qu'il suit
                 {% endfor %}
             </ul>
         </div>
+        
+        <!-- USER CONTENT -->
         <div class="col-5">
             User Tickets:
             <hr>
             {% for t in tickets %}
+                
                 {% if profile == t.author %}
-                <b>{{t.author}}</b>
-                <br>
-                {{t.description}}
-                <hr>
+                    <span class="text-muted float-right" style="font-size:0.7rem;">
+                        {{t.created|date:"H:i"}}, {{t.created|date:"d b Y"}}
+                    </span>
+                    
+                    Auteur: {{t.author}}
+                    <br>
+                    <b>Titre: {{t.title}}</b>
+                    
+                    <br><br>
+                    {{t.description}}
+                    <br><br>
+                    
+                    {% if t.image %}
+                    <img class="image" src="/static/images/{{ t.image }}"  alt="livre ou article" style="max-width: 300px;"/>
+                    {% endif %}
+                    <br><br>
+                    
+                    {% if user == t.author.user %}
+                        <a href="{% url 'ticket_edit' t.pk %}">Modifier</a> |
+                        <a href="{% url 'ticket_delete' t.pk %}">Effacer</a>
+                    {% endif %}
+                    
+                    <hr>
                 {% endif %}
             {% endfor %}
         </div>
+        
+        <!-- FOLLOWED PEOPLE CONTENT -->
         <div class="col-5">
             Following Tickets:
             <hr>
             {% for t in tickets %}
                 {% if profile != t.author %}
-                <b>{{t.author}}</b>
+                <span class="text-muted float-right" style="font-size:0.7rem;">
+                    {{t.created|date:"H:i"}}, {{t.created|date:"d b Y"}}
+                </span>
+                
+                Auteur: {{t.author}}
                 <br>
+                <b>Titre: {{t.title}}</b>
+                
+                <br><br>
                 {{t.description}}
+                <br><br>
+                
+                {% if t.image %}
+                <img class="image" src="/static/images/{{ t.image }}"  alt="livre ou article" style="max-width: 300px;"/>
+                {% endif %}
+                <br><br>
+                
+                {% if user == t.author.user %}
+                    <a href="{% url 'ticket_edit' t.pk %}">Modifier</a> |
+                    <a href="{% url 'ticket_delete' t.pk %}">Effacer</a>
+                {% endif %}
+                
                 <hr>
                 {% endif %}
             {% endfor %}
