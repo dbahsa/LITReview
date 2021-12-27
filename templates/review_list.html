@@ -1,4 +1,4 @@
-<!-- templates/ticket_list.html -->
+<!-- templates/feed.html -->
 {% extends 'base.html' %}
 
 
@@ -11,9 +11,9 @@
         <a type="btn" href="{% url 'review_new' %}" class="btn btn-outline-primary">Créer une critique</a>
     </div>
     <br/>
-    {% if ticket_list %}
+    {% if feed %}
         
-        {% for ticket in ticket_list %}
+        {% for ticket in feed %}
             <div class="card">
                     
                     <div class="card-header">

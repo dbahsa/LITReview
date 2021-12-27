@@ -23,11 +23,8 @@ Main Posts
 
 
 <hr>
-<hr>
-<br><br>
 
 <!-- User content -->
-Les tickets de l'utilisateur et ceux de personnes qu'il suit
 <hr>
 <div class="container">
     <div class="row">
@@ -39,15 +36,16 @@ Les tickets de l'utilisateur et ceux de personnes qu'il suit
             <a href="{% url 'profiles:profile-list-view' %}">
                 <button type="button" class="btn btn-primary">People to follow</button>
             </a>
-            <br><br>
-            Following:
+            <hr><hr>
+            FOLLOWING:
             <ul>
                 {% for p in profile.following.all %}
                 <li>{{p}}</li>
                 {% endfor %}
             </ul>
             <hr>
-            Followers: <br>
+            <hr>
+            FOLLOWERS: <br>
             <ul>
                 {% for follower in user.following.all %}
                 <li>{{follower}}</li>
@@ -57,7 +55,7 @@ Les tickets de l'utilisateur et ceux de personnes qu'il suit
         
         <!-- USER CONTENT -->
         <div class="col-5">
-            User Tickets:
+            USER TICKETS:
             <hr>
             {% for t in tickets %}
                 
@@ -91,7 +89,7 @@ Les tickets de l'utilisateur et ceux de personnes qu'il suit
         
         <!-- FOLLOWED PEOPLE CONTENT -->
         <div class="col-5">
-            Following Tickets:
+            FOLLOWING TICKETS:
             <hr>
             {% for t in tickets %}
                 {% if profile != t.author %}

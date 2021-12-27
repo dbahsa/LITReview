@@ -16,7 +16,7 @@
             
             <p class="lead">
                 {% if user.is_authenticated %}
-                <a class="btn btn-success" href="{% url 'ticket_list' %}" role="button">Voir toutes les critiques</a>
+                <a class="btn btn-success" href="{% url 'feed' %}" role="button">Voir toutes les critiques</a>
                 <a class="btn btn-danger" href="{% url 'logout' %}" role="button"> Se déconnecter</a>
                 {% else %}
                 <a href="{% url 'login' %}" class="btn btn-success ml-2">Connectez-vous</a>

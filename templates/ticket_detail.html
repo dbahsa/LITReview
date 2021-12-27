@@ -67,7 +67,7 @@
                 <textarea name="review" rows="4" class="form-control"></textarea>
                 <br>
                         <input type="submit" value="Envoyer" class="btn btn-primary">
-                        <a class="btn btn-warning" href="{% url 'ticket_list' %}" role="button">Retour</a>
+                        <a class="btn btn-warning" href="{% url 'feed' %}" role="button">Retour</a>
                         <!-- <p>You must purchase this product to post a review.</p> -->
                 <br>
                 <br>
@@ -81,7 +81,7 @@
     {% else %}
         <b>Ticket Commenté!</b>
         <br>
-        <a class="btn btn-warning" href="{% url 'ticket_list' %}" role="button">Retour</a>
+        <a class="btn btn-warning" href="{% url 'feed' %}" role="button">Retour</a>
     {% endif %}
 
 

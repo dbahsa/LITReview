@@ -32,7 +32,7 @@ from django.contrib.auth.models import User
 
 class TicketListView(LoginRequiredMixin, ListView):
     model = Ticket
-    template_name = 'ticket_list.html'
+    template_name = 'feed.html' # 'ticket_list' replaced by 'feed'
     login_url = 'login'
 
 
@@ -58,7 +58,7 @@ class TicketUpdateView(LoginRequiredMixin, UpdateView):
 class TicketDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Ticket
     template_name = 'ticket_delete.html'
-    success_url = reverse_lazy('ticket_list')
+    success_url = reverse_lazy('feed')
     login_url = 'login'
 
     def test_func(self):

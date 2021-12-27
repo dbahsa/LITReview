@@ -10,7 +10,7 @@
         {% csrf_token %}
         {{ form|crispy }}
         <button class="btn btn-info ml-2" type="submit">Enregistrer</button>
-        <a type="btn" href="{% url 'ticket_list' %}" class="btn ml-2 btn-outline-danger">Annuler</a>
+        <a type="btn" href="{% url 'feed' %}" class="btn ml-2 btn-outline-danger">Annuler</a>
     </form>
     <br>
 {% endblock content %}
