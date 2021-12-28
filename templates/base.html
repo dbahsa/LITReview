@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
+        <!-- PLEASE DO NOT ERASE ANY COMMENTS __ KEEP THEM FOR FUTURE REF -->
         <!-- Menu -->
         <nav class="navbar navbar-expand-sm navbar-light bg-light mb-4">
             <div class="d-flex flex-grow-1">
@@ -25,25 +26,25 @@
                     {% if user.is_authenticated %}
                         <ul class="navbar-nav ml-auto flex-nowrap" style="padding-top: 5px;">
                             <li class="nav-item">
-                                <a href="{% url 'myfeed' %}">Mon Flux</a>
+                                <a href="{% url 'myfeed' %}">Flux</a>
                             </li>
                             <li class="nav-item">
                                 <span >&nbsp;&nbsp;&nbsp;&nbsp;</span>
                             </li>
 
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a href="{% url 'othersfeed' %}">Others Flux</a>
                             </li>
                             <li class="nav-item">
                                 <span >&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            </li>
+                            </li> -->
 
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a href="{% url 'feed' %}">All Flux</a>
                             </li>
                             <li class="nav-item">
                                 <span >&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            </li>
+                            </li> -->
 
                             <li class="nav-item">
                                 <a href="{% url 'tickets-follow-view' %}">Posts</a>

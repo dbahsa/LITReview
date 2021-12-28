@@ -79,39 +79,6 @@
                 <br/>
         {% endfor %}
     
-    <!-- FOLLOWED PEOPLE CONTENT -->
-        <div class="col-5">
-            FOLLOWING TICKETS:
-            <hr>
-            {% for t in tickets %}
-                {% if profile != t.author %}
-                <span class="text-muted float-right" style="font-size:0.7rem;">
-                    {{t.created|date:"H:i"}}, {{t.created|date:"d b Y"}}
-                </span>
-                
-                Auteur: {{t.author}}
-                <br>
-                <b>Titre: {{t.title}}</b>
-                
-                <br><br>
-                {{t.description}}
-                <br><br>
-                
-                {% if t.image %}
-                <img class="image" src="/static/images/{{ t.image }}"  alt="livre ou article" style="max-width: 300px;"/>
-                {% endif %}
-                <br><br>
-                
-                {% if user == t.author.user %}
-                    <a href="{% url 'ticket_edit' t.pk %}">Modifier</a> |
-                    <a href="{% url 'ticket_delete' t.pk %}">Effacer</a>
-                {% endif %}
-                
-                <hr>
-                {% endif %}
-            {% endfor %}
-        </div>
-    
         {% else %}
         <p> Aucun ticket n'a été publiéeee</p>
     {% endif %}

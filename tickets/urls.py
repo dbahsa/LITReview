@@ -7,6 +7,7 @@ from .views import (
     TicketDeleteView,
     TicketCreateView,
     submit_review,
+    # edit_review,
     tickets_of_following_profiles,
     my_feed_tickets_of_following_profiles,
     others_feed_tickets_of_following_profiles,
@@ -23,6 +24,7 @@ urlpatterns = [
     path('new/', TicketCreateView.as_view(), name='ticket_new'),
     path('', TicketListView.as_view(), name='feed'), # 'ticket_list' replaced by 'feed'
     path('submit_review/<int:pk>/', submit_review, name='submit_review'),
+    # path('edit_review/<int:pk>/', edit_review, name='edit_review'),
     path('account/', tickets_of_following_profiles, name='tickets-follow-view'),
     path('myfeed/', my_feed_tickets_of_following_profiles, name='myfeed'),
     path('othersfeed/', others_feed_tickets_of_following_profiles, name='othersfeed'),

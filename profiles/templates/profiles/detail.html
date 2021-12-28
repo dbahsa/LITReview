@@ -46,6 +46,9 @@
             {% else %}
                 <button id="follow-btn" class="btn btn-success">Follow</button>
             {% endif %}
+            <hr>
+            <br><br>
+            <a type="btn" onClick="javascript:history.go(-1);" class="btn btn-warning btn-sm">Retourner</a><br>
         </div>
         <div class="col-9">
             {% for ticket in object.profiles_tickets %}

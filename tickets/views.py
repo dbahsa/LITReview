@@ -82,7 +82,7 @@ class TicketCreateView(LoginRequiredMixin, CreateView):
 @login_required
 def submit_review(request, pk):
     """review function"""
-    url = request.META.get('HTTP_REFERER') # 'url' so that the user redirect to 'ticket detail' page
+    url = request.META.get('HTTP_REFERER') # 'url' to redirect to 'ticket detail' page
     if request.method == 'POST':
         try:
             reviews = ReviewRating.objects.get(user__id=request.user.id, ticket__id=pk)

@@ -7,27 +7,39 @@
 
 
 {% block content %}
-    {% for profile in profiles %}
-        
-        <div class="card">
-                    
-            <div class="card-header">
-                <span class="text-muted"></span>
-                <span class="text-muted float-right" style="font-size:0.7rem;"></span>
-                
-                    <p style="margin-bottom:0;">
-                        <span class="font-weight-bold"></span>
-                    </p>
-                    <p style="margin-bottom:0;"></p>
 
+    <br><br>
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <!-- search bar -->
+                <form class="form-inline pull-right" method=POST action="{% url 'user-search' %}">
+                    {% csrf_token %}
+                    <input class="form-control mr-sm-2" name="searched" type="search" placeholder="Nom d'utilisateur..." value="{{ request.GET.q }}" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Envoyer</button>
+                </form>
             </div>
-            
-            <div class="card-body">
-                
-                <h6>{{profile}}</h6>
-                <a type="btn" href="{% url 'profiles:profile-detail-view' profile.pk %}" class="btn btn-primary">Voir profil</a>
-
+            <div class="col-6 text-center">
+                <!-- CREATE TICKET + ADD REVIEW -->
+                <a type="btn" href="{% url 'ticket_new' %}" class="btn btn-warning">Demander et Créer Une Critique</a>
             </div>
+        </div>
     </div>
+    <br><br>
+    <hr>
+    <br><br>
+    <h3>Liste des utilisateurs</h3>
+    <span class="text-muted" style="font-size:1rem;">
+        Cliquer sur un nom pour gérer votre abonnement avec cet utilisateur.
+    </span><br><br><br>
+    {% for profile in profiles %}
+        <div>
+            <a href="{% url 'profiles:profile-detail-view' profile.pk %}">{{ profile|capfirst }}</a><br>
+            <!-- <a type="btn" href="{% url 'profiles:profile-detail-view' profile.pk %}" class="btn btn-primary btn-sm">Abonnement</a> -->
+        </div>
+        <br>
     {% endfor %}
+    <br>
+    <a type="btn" onClick="javascript:history.go(-1);" class="btn btn-warning btn-sm">Retourner</a><br><br><br>
+
 {% endblock content %}

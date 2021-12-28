@@ -9,5 +9,4 @@ urlpatterns = [
     path('', ProfileListView.as_view(), name='profile-list-view'),
     path('switch_follow/', follow_unfollow_profile, name='follow-unfollow-view'),
     path('<pk>/', ProfileDetailView.as_view(), name='profile-detail-view'),
-    path('<pk>/', ProfileDetailView.as_view(), name='profile-detail-view'),
 ]

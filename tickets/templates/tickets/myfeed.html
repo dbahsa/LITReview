@@ -5,30 +5,31 @@
 {% load static %}
 
 {% block title %}
-Main Posts
+Flux
 {% endblock title %}
 
 
 {% block content %}
 
-<!-- search bar -->
+<!-- PLEASE DO NOT ERASE ANY COMMENTS __ KEEP THEM FOR FUTURE REF -->
 <br><br>
-<div class="container ">
-    <form class="form-inline pull-right" method=POST action="{% url 'user-search' %}">
-        {% csrf_token %}
-        <input class="form-control mr-sm-2" name="searched" type="search" placeholder="Nom d'utilisateur..." value="{{ request.GET.q }}" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Envoyer</button>
-    </form>
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <!-- search bar -->
+            <form class="form-inline pull-right" method=POST action="{% url 'user-search' %}">
+                {% csrf_token %}
+                <input class="form-control mr-sm-2" name="searched" type="search" placeholder="Nom d'utilisateur..." value="{{ request.GET.q }}" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Envoyer</button>
+            </form>
+        </div>
+        <div class="col-6 text-center">
+            <!-- CREATE TICKET + ADD REVIEW -->
+            <a type="btn" href="{% url 'ticket_new' %}" class="btn btn-warning">Demander et Créer Une Critique</a>
+        </div>
+    </div>
 </div>
 <br><br>
-<hr>
-<br>
-
-<!-- CREATE TICKET + ADD REVIEW -->
-<div class="text-center">
-    <a type="btn" href="{% url 'ticket_new' %}" class="btn btn-warning">Demander et Créer Une Critique</a>
-</div>
-<br/>
 
 <!-- User content -->
 <hr>
@@ -37,7 +38,7 @@ Main Posts
         
         <!-- LIST OF FOLLOWED PEOPLE AND FOLLOWERS -->
         <div class="col-3">
-            Compte de <b>{{ profile|upper }}</b>
+            Bonjour <b>{{ profile|capfirst }}</b>
             <br><br>
             <a href="{% url 'profiles:profile-list-view' %}">
                 <button type="button" class="btn btn-primary">Gérer Mes Abonnements</button>
@@ -46,7 +47,7 @@ Main Posts
             Mes Abonnements (Following):
             <ul>
                 {% for p in profile.following.all %}
-                <li>{{p}}</li>
+                <li>{{ p|capfirst }}</li>
                 {% endfor %}
             </ul>
             <hr>
@@ -54,43 +55,130 @@ Main Posts
             Mes Abonnés (Followers): <br>
             <ul>
                 {% for follower in user.following.all %}
-                <li>{{follower}}</li>
+                <li>{{ follower|capfirst }}</li>
                 {% endfor %}
             </ul>
         </div>
         
-        <!-- USER CONTENT -->
+        <!-- CURRENT USER CONTENT -->
         <div class="col-9">
-            <h3 class="display-4">Mes Tickets</h3>
+            <h2 class="display-4">Flux</h2>
             <hr>
             {% for t in tickets %}
                 
                 {% if profile == t.author %}
                     <span class="text-muted float-right" style="font-size:0.7rem;">
-                        {{t.created|date:"H:i"}}, {{t.created|date:"d b Y"}}
+                        Publié par {{ profile }} à {{t.created|date:"H:i"}}, le {{t.created|date:"d b Y"}}
                     </span>
                     
-                    Auteur: {{t.author}}
+                    <!-- Auteur: {{t.author}} -->
+                    <p style="font-weight: bolder; color:yellowgreen;">Titre: {{t.title}}</p>
+
+                    <!-- REVIEW STARTS HERE -->
+                    {% if t.comments.first %}
+                    <p style="margin-bottom:0;">
+                                
+                        {% if profile == t.comments.first.user %}
+                            <span class="text-muted">Vous avez publié une critique</span><br>
+                        {% else %}
+                            <span class="text-muted">{{ t.comments.first.user }} a publié une critique</span><br>
+                        {% endif %}
+
+                        <span class="font-weight-bold font-italic">{{ t.comments.first.subject }}&nbsp;&nbsp;-&nbsp;&nbsp;</span>
+                        <span class="fa {% if t.comments.first.rating >= 1 %} fa-star {% else %} fa-star-o {% endif%}"></span>
+                        <span class="fa {% if t.comments.first.rating >= 2 %} fa-star {% else %} fa-star-o {% endif%}"></span>
+                        <span class="fa {% if t.comments.first.rating >= 3 %} fa-star {% else %} fa-star-o {% endif%}"></span>
+                        <span class="fa {% if t.comments.first.rating >= 4 %} fa-star {% else %} fa-star-o {% endif%}"></span>
+                        <span class="fa {% if t.comments.first.rating >= 5 %} fa-star {% else %} fa-star-o {% endif%}"></span>
+                        <span>&nbsp;&nbsp;-&nbsp;&nbsp;</span>
+                        <span class="font-weight-bold font-italic">'{{ t.comments.first.review}}'</span>
+                    </p>
+                    {% endif %}
+                    <!-- REVIEW ENDS HERE -->
+
                     <br>
-                    <b>Titre: {{t.title}}</b>
-                    
-                    <br><br>
-                    {{t.description}}
-                    <br><br>
+                    <p style="background-color:rgba(0,0,0,.03);padding: 10px;">{{t.description}}</p>
                     
                     {% if t.image %}
                     <img class="image" src="/static/images/{{ t.image }}"  alt="livre ou article" style="max-width: 300px;"/>
                     {% endif %}
-                    <br><br>
+                    <br>
                     
                     {% if user == t.author.user %}
                         <a href="{% url 'ticket_edit' t.pk %}">Modifier</a> |
                         <a href="{% url 'ticket_delete' t.pk %}">Effacer</a>
                     {% endif %}
-                    
+                    <br>
+                    {% if not t.comments.first %}
+                        <a type="btn" href="{% url 'ticket_detail' t.pk %}" class="btn btn-outline-primary pull-right">Créer une critique</a><br><br>
+                    {% endif %}
+
                     <hr>
                 {% endif %}
             {% endfor %}
+            <!-- </div> -->
+        
+            <!-- NETWORK USERS CONTENTS -->
+            <!-- <div class="col-5"> -->
+            <hr><hr>
+            <h2 class="display-4">Tickets Réseau</h2>
+            <hr>
+            {% for t in tickets %}
+                {% if profile != t.author %}
+                    <span class="text-muted float-right" style="font-size:0.7rem;">
+                        Publié par {{ t.author }} à {{t.created|date:"H:i"}}, le {{t.created|date:"d b Y"}}
+                    </span>
+                    
+                    <!-- Auteur: {{t.author}} -->
+                    <b>Titre: {{t.title}}</b><br><br>
+                    
+                    <!-- REVIEW STARTS HERE -->
+                    {% if t.comments.first %}
+                        <p style="margin-bottom:0;">
+                                    
+                            {% if profile == t.comments.first.user %}
+                                <span class="text-muted">Vous avez publié une critique</span><br>
+                            {% else %}
+                                <span class="text-muted">{{ t.comments.first.user }} a publié une critique</span><br>
+                            {% endif %}
+
+                            <span class="font-weight-bold font-italic">{{ t.comments.first.subject }}&nbsp;&nbsp;-&nbsp;&nbsp;</span>
+                            <span class="fa {% if t.comments.first.rating >= 1 %} fa-star {% else %} fa-star-o {% endif%}"></span>
+                            <span class="fa {% if t.comments.first.rating >= 2 %} fa-star {% else %} fa-star-o {% endif%}"></span>
+                            <span class="fa {% if t.comments.first.rating >= 3 %} fa-star {% else %} fa-star-o {% endif%}"></span>
+                            <span class="fa {% if t.comments.first.rating >= 4 %} fa-star {% else %} fa-star-o {% endif%}"></span>
+                            <span class="fa {% if t.comments.first.rating >= 5 %} fa-star {% else %} fa-star-o {% endif%}"></span>
+                            <span>&nbsp;&nbsp;-&nbsp;&nbsp;</span>
+                            <span class="font-weight-bold font-italic">'{{ t.comments.first.review}}'</span>
+                        </p>
+                    {% endif %}
+                    <!-- REVIEW ENDS HERE -->
+
+                    <br>
+                    {{t.description}}
+                    <br>
+                    
+                    {% if t.image %}
+                    <img class="image" src="/static/images/{{ t.image }}"  alt="livre ou article" style="max-width: 300px;"/>
+                    {% endif %}
+                    <br>
+                    
+                    {% if user == t.author.user %}
+                        <a href="{% url 'ticket_edit' t.pk %}">Modifier</a> |
+                        <a href="{% url 'ticket_delete' t.pk %}">Effacer</a>
+                    {% endif %}
+
+                    <br>
+                    {% if not t.comments.first %}
+                        <a type="btn" href="{% url 'ticket_detail' t.pk %}" class="btn btn-outline-primary pull-right">Créer une critique</a><br><br>
+                    {% endif %}
+                    
+                    <hr>
+                {% endif %}
+            
+            {% endfor %}
+            <!-- <a type="btn" href="{% url 'feed' %}" class="btn ml-2 btn-primary">Voir tous les tickets</a> -->
+            <a type="btn" href="{% url 'profiles:profile-list-view' %}" class="btn ml-2 btn-primary">Voir tous les utilisateurs</a><br><br>
         </div>
         
     </div>

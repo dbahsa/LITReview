@@ -8,5 +8,6 @@
         {% csrf_token %}
         <p>Êtes-vous sûr.e de vouloir effacer: "{{ ticket.title }}"?</p>
         <button class="btn btn-danger ml-2" type="submit">Confirmer</button>
+        <a class="btn btn-primary" onClick="javascript:history.go(-1);" role="button">Retourner</a>
     </form>
 {% endblock content %}

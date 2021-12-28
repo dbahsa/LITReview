@@ -6,7 +6,7 @@
 {% block content %}
     <div class="ticket-entry">
         <h2>{{ object.title }}</h2>
-        <p>by {{ object.author }} | {{ object.created }}</p>
+        <p>par {{ object.author }} | {{ object.created }}</p>
         <p>{{ object.description }}</p>
         {% if ticket.image %}
         <img class="image" src="/static/images/{{ ticket.image }}" style="max-width: 300px;"/>
@@ -19,14 +19,15 @@
     <p><a href="{% url 'ticket_edit' ticket.pk %}">Modifier</a> |
     <a href="{% url 'ticket_delete' ticket.pk %}">Effacer</a></p>
     {% endif %}
-
+    <a type="btn" href="{% url 'myfeed' %}" class="btn btn-warning">Retourner</a>
     <hr>
-    {% if not ticket.comments.first %}
-    
-        <!-- REVIEW FORM -->
-        <h5>Critique</h5>
+
+    <!-- THIS PART IS TO UPDATE COMMENT -->
+    {% if not ticket.comments.first.user %}
+
+        <!-- START UPDATE -->
+        <h5>Modification de votre commentaire...</h5>
         <br>
-        
         <!-- replace single_ticket.id by ticket.pk -->
         <form action="{% url 'submit_review' ticket.pk %}" method="POST">
             {% csrf_token %}
@@ -67,7 +68,7 @@
                 <textarea name="review" rows="4" class="form-control"></textarea>
                 <br>
                         <input type="submit" value="Envoyer" class="btn btn-primary">
-                        <a class="btn btn-warning" href="{% url 'feed' %}" role="button">Retour</a>
+                        <a class="btn btn-danger" href="{% url 'feed' %}" role="button">Annuler</a>
                 <br>
                 <br>
                 
@@ -75,13 +76,6 @@
             </div>
 
         </form>
-
-    {% else %}
-        <b>Ticket Commenté!</b>
-        <br>
-        <!-- <a class="btn btn-warning" href="{% url 'feed' %}" role="button">Retour</a> -->
-        <a class="btn btn-warning" onClick="javascript:history.go(-1);" role="button">Retour</a>
-        
     {% endif %}
 
 

@@ -8,40 +8,41 @@ Main Posts
 
 
 {% block content %}
+<!-- PLEASE DO NOT ERASE ANY COMMENTS __ KEEP THEM FOR FUTURE REF -->
 
-<!-- search bar -->
 <br><br>
 <div class="container">
-    <form class="form-inline" method="POST" action="{% url 'user-search' %}">
-        {% csrf_token %}
-        <input class="form-control mr-sm-2" name="searched" type="search" placeholder="Nom d'utilisateur..." value="{{ request.GET.q }}" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Envoyer</button>
-    </form>
+    <div class="row">
+        <div class="col-6">
+            <!-- search bar -->
+            <form class="form-inline pull-right" method=POST action="{% url 'user-search' %}">
+                {% csrf_token %}
+                <input class="form-control mr-sm-2" name="searched" type="search" placeholder="Nom d'utilisateur..." value="{{ request.GET.q }}" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Envoyer</button>
+            </form>
+        </div>
+        <div class="col-6 text-center">
+            <!-- CREATE TICKET + ADD REVIEW -->
+            <a type="btn" href="{% url 'ticket_new' %}" class="btn btn-warning">Demander et Créer Une Critique</a>
+        </div>
+    </div>
 </div>
-<br>
-Compte de: {{ profile }}
+<br><br>
+
 <hr>
-Searched users:
+Résultats de votre recherche
+<hr>
     {% if searched %}
-        <h1>You Searched for: {{ searched }} </h1>
-        <br>
+        <h6>Vous avez tapé: {{ searched }} </h6>
         {% for user in users %}
-
             {% if not profile %}
-            
-            <h6>{{user}}: ID°{{user.id}} // {{ user.date_joined}} // {{ user.profile.id}}</h6>
-            <a type="btn" href="{% url 'profiles:profile-detail-view' user.profile.id %}" class="btn btn-primary">Voir profil</a><br>
-            
+            <!-- <h6>{{user}}: ID°{{user.id}} // {{ user.date_joined}} // {{ user.profile.id}}</h6> -->
+            <!-- <a type="btn" href="{% url 'profiles:profile-detail-view' user.profile.id %}" class="btn btn-primary">Voir profil</a><br> -->
+            <br><a href="{% url 'profiles:profile-detail-view' user.profile.id %}">{{user}}</a><br>
             {% endif%}
-        
         {% endfor %}
-
     {% else %}
-        <h1>You didn't make any search </h1> 
-    
+        <h6>Merci d'entrer votre recherche dans la barre ci-dessus, svp. </h6> 
     {% endif %}
-    
-
-
 
 {% endblock content %}

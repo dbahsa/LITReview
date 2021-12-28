@@ -7,14 +7,13 @@
 
 {% block content %}
     <h1>Demander une critique</h1>
-    <span style="color:rgb(10, 161, 22);"> Juste après la création de votre demande de critique, vous aurez le choix de la critiquer vous-même, ou de revenir à la page principale.</span>
+    <span style="color:rgb(10, 161, 22);"> Juste après la création de votre demande de critique, vous aurez le choix de vous NOTER vous-même, et/ou de revenir à la page principale.</span>
     <br><br>
     <form action="{% url 'ticket_new' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form|crispy }}
         <button class="btn btn-success ml-2" type="submit">Enregistrer</button>
-        <a type="btn" href="{% url 'feed' %}" class="btn ml-2 btn-outline-danger">Annuler</a>
-        <!-- <button class="btn btn-danger ml-2" type="button">Annuler</button> -->
+        <a type="btn" onClick="javascript:history.go(-1);" class="btn ml-2 btn-outline-warning">Annuler</a>
     </form>
     <br/>
     <br/>

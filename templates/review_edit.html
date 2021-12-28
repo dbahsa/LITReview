@@ -5,10 +5,18 @@
 {% load crispy_forms_filters %}
 
 {% block content %}
-    <h1>Modifier</h1>
-    <form action="{% url 'review_edit' ticket.pk %}" method="post" enctype="multipart/form-data">
+
+    <!-- REVIEW FORM -->
+    <h5>Modifier votre commantaire!</h5>
+    <br>
+    
+    <!-- replace single_ticket.id by ticket.pk -->
+    <form action="{% url 'edit_review' ticket.pk %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form|crispy }}
-        <button class="btn btn-info ml-2" type="submit">Actualiser</button>
+        <button class="btn btn-info ml-2" type="submit">Enregistrer</button>
+        <!-- <a type="btn" href="{% url 'feed' %}" class="btn ml-2 btn-outline-danger">Annuler</a> -->
+        <a type="btn" onClick="javascript:history.go(-1);" class="btn ml-2 btn-outline-danger">Annuler</a>
     </form>
+
 {% endblock content %}
