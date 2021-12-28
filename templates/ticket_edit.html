@@ -7,6 +7,8 @@
 
 {% block content %}
     
+<!-- PLEASE DO NOT REMOVE COMMENTS __ THEY ARE HERE FOR FUTURE REF -->
+
     <!-- TICKET CONTENT -->
     <h1>Modifier Ticket</h1>
     <form action="{% url 'ticket_edit' ticket.pk %}" method="post" enctype="multipart/form-data">
@@ -22,13 +24,13 @@
 
     
     <!-- UPDATE START HERE -->
-    <br>
-    {% if ticket.comments.first %}
+    <!-- <br> -->
+    <!-- {% if ticket.comments.first %} -->
     <!-- REVIEW FORM -->
-    <h5>Modifier votre commentaire!</h5>
+    <!-- <h5>Modifier votre commentaire!</h5> -->
         
     <!-- SEE COMMENTS BEFORE UPDATING IT -->
-    <p style="margin-bottom:0;">
+    <!-- <p style="margin-bottom:0;">
 
         <span class="text-muted">Vous avez publié une critique</span><br>
     
@@ -40,18 +42,18 @@
         <span class="fa {% if ticket.comments.first.rating >= 5 %} fa-star {% else %} fa-star-o {% endif%}"></span>
         <br>
         <span class="font-weight-bold font-italic">'{{ ticket.comments.first.review}}'</span>
-    </p><br><br>
+    </p><br><br> -->
 
         <!-- REVIEW SUBMISSION -->
-        <form action="{% url 'submit_review' ticket.pk %}" method="POST">
+        <!-- <form action="{% url 'submit_review' ticket.pk %}" method="POST">
             {% csrf_token %}
             
             <div>
                 <label for="ratingtitle">Titre</label>
                 <input type="text" class="form-control" name="subject" id="ratingtitle">
-                <br>
+                <br> -->
                 <!-- Rating stars -->
-                <label>Note</label>
+                <!-- <label>Note</label>
                 <br>
                 <div class="rate">
                     <div class="form-check form-check-inline">
@@ -75,9 +77,9 @@
                         <label class="form-check-label" for="inlineRadio5"> - 5</label>
                     </div>
                 </div>
-                
+                 -->
                 <!-- REVIEW CONTENT -->
-                <br>
+                <!-- <br>
                 Commentaire
                 <textarea name="review" rows="4" class="form-control"></textarea>
                 <br>
@@ -89,7 +91,7 @@
 
             </div>
 
-        </form>
+        </form> -->
     {% endif %}
 
 

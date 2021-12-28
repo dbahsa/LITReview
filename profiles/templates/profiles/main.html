@@ -2,7 +2,7 @@
 
 
 {% block title %}
-    Profiles to follow
+    Gestion Des Abonnements
 {% endblock title %}
 
 
@@ -25,21 +25,37 @@
             </div>
         </div>
     </div>
+    
     <br><br>
     <hr>
     <br><br>
-    <h3>Liste des utilisateurs</h3>
-    <span class="text-muted" style="font-size:1rem;">
-        Cliquer sur un nom pour gérer votre abonnement avec cet utilisateur.
-    </span><br><br><br>
-    {% for profile in profiles %}
-        <div>
-            <a href="{% url 'profiles:profile-detail-view' profile.pk %}">{{ profile|capfirst }}</a><br>
-            <!-- <a type="btn" href="{% url 'profiles:profile-detail-view' profile.pk %}" class="btn btn-primary btn-sm">Abonnement</a> -->
+    <div class="container">
+        <div class="row">
+            <!-- LIST OF FOLLOWED PEOPLE AND FOLLOWERS -->
+            <div class="col-6">
+                Bonjour <b>{{ user|capfirst }}</b>
+                <br><br>
+                <br>
+                <a type="btn" onClick="javascript:history.go(-1);" class="btn btn-warning btn-sm">Retourner</a><br><br><br>
+            </div>
+
+            <!-- USERS LIST -->
+            <div class="col-6">
+                <h3>Liste des utilisateurs du site.</h3>
+                <span class="text-muted" style="font-size:1rem;">
+                    Cliquer sur un nom pour gérer votre abonnement avec cet utilisateur.
+                </span><br><br><br>
+                {% for profile in profiles %}
+                    <div>
+                        <a href="{% url 'profiles:profile-detail-view' profile.pk %}">{{ profile|capfirst }}</a><br>
+                        <!-- <a type="btn" href="{% url 'profiles:profile-detail-view' profile.pk %}" class="btn btn-primary btn-sm">Abonnement</a> -->
+                    </div>
+                    <br>
+                {% endfor %}
+                
+            </div>
         </div>
-        <br>
-    {% endfor %}
-    <br>
-    <a type="btn" onClick="javascript:history.go(-1);" class="btn btn-warning btn-sm">Retourner</a><br><br><br>
+    </div>
+
 
 {% endblock content %}
