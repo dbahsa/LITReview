@@ -52,7 +52,7 @@ class TicketUpdateView(LoginRequiredMixin, UpdateView):
 
     def test_func(self):
         obj = self.get_object()
-        return obj.author == self.request.user
+        return obj.author == Profile.objects.get(user=self.request.user)
 
 
 class TicketDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -63,7 +63,7 @@ class TicketDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         obj = self.get_object()
-        return obj.author == self.request.user
+        return obj.author == Profile.objects.get(user=self.request.user)
 
 
 
@@ -74,7 +74,8 @@ class TicketCreateView(LoginRequiredMixin, CreateView):
     login_url = 'login'
 
     def form_valid(self, form):
-        form.instance.author = self.request.user
+        # form.instance.author = self.request.user
+        form.instance.author = Profile.objects.get(user=self.request.user)
         return super().form_valid(form)
 
 
@@ -156,9 +157,10 @@ def my_feed_tickets_of_following_profiles(request):
     context= {'profile':profile, 'tickets': qs, 'allusers': all_users}
     return render(request, 'tickets/myfeed.html', context)
 
+
 @login_required
 def others_feed_tickets_of_following_profiles(request):
-    """view for user dashboard"""
+    """view for other users feed"""
     # get logged-in user profile
     profile = Profile.objects.get(user=request.user)
     # check who's being followed

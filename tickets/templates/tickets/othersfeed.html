@@ -22,6 +22,12 @@ Main Posts
 </div>
 <br><br><br>
 
+<!-- CREATE TICKET + ADD REVIEW -->
+<div class="text-center">
+    <a type="btn" href="{% url 'ticket_new' %}" class="btn btn-primary">Demander et Créer Une Critique</a>
+</div>
+<br/>
+
 <!-- User content -->
 <hr>
 <div class="container">
@@ -29,7 +35,7 @@ Main Posts
         
         <!-- LIST OF FOLLOWED PEOPLE AND FOLLOWERS -->
         <div class="col-3">
-            <b>{{ profile }}</b> suit:
+            <b>{{ profile|upper }}</b> suit:
             <hr>
             <ul>
                 {% for p in profile.following.all %}
@@ -38,7 +44,7 @@ Main Posts
             </ul>
             <hr>
             <hr>
-            <b>{{ profile }}</b> est suivi par:
+            <b>{{ profile|upper }}</b> est suivi par:
             <hr>
             <ul>
                 {% for follower in user.following.all %}
@@ -49,6 +55,7 @@ Main Posts
         
         <!-- FOLLOWED PEOPLE CONTENT -->
         <div class="col-9">
+            <h3 class="display-4">Tickets Followers & Following</h3>
             <hr>
             {% for t in tickets %}
                 {% if profile != t.author %}

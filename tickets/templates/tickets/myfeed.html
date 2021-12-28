@@ -26,8 +26,7 @@ Main Posts
 
 <!-- CREATE TICKET + ADD REVIEW -->
 <div class="text-center">
-    <a type="btn" href="{% url 'ticket_new' %}" class="btn btn-outline-primary">Demander une critique</a>
-    <a type="btn" href="" class="btn btn-outline-primary">Créer une critique</a>
+    <a type="btn" href="{% url 'ticket_new' %}" class="btn btn-warning">Demander et Créer Une Critique</a>
 </div>
 <br/>
 
@@ -38,13 +37,13 @@ Main Posts
         
         <!-- LIST OF FOLLOWED PEOPLE AND FOLLOWERS -->
         <div class="col-3">
-            Compte de: {{ profile }}
+            Compte de <b>{{ profile|upper }}</b>
             <br><br>
             <a href="{% url 'profiles:profile-list-view' %}">
-                <button type="button" class="btn btn-primary">People to follow</button>
+                <button type="button" class="btn btn-primary">Gérer Mes Abonnements</button>
             </a>
             <hr><hr>
-            FOLLOWING:
+            Mes Abonnements (Following):
             <ul>
                 {% for p in profile.following.all %}
                 <li>{{p}}</li>
@@ -52,7 +51,7 @@ Main Posts
             </ul>
             <hr>
             <hr>
-            FOLLOWERS: <br>
+            Mes Abonnés (Followers): <br>
             <ul>
                 {% for follower in user.following.all %}
                 <li>{{follower}}</li>
@@ -62,7 +61,7 @@ Main Posts
         
         <!-- USER CONTENT -->
         <div class="col-9">
-            USER TICKETS:
+            <h3 class="display-4">Mes Tickets</h3>
             <hr>
             {% for t in tickets %}
                 

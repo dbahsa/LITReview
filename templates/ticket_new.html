@@ -6,7 +6,9 @@
 
 
 {% block content %}
-    <h1>Demander une critique (nouveau ticket)</h1>
+    <h1>Demander une critique</h1>
+    <span style="color:rgb(10, 161, 22);"> Juste après la création de votre demande de critique, vous aurez le choix de la critiquer vous-même, ou de revenir à la page principale.</span>
+    <br><br>
     <form action="{% url 'ticket_new' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form|crispy }}

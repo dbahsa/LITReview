@@ -24,7 +24,9 @@ class Ticket(models.Model):
         return reverse('ticket_detail', args=[str(self.id)])
 
     class Meta:
-        ordering = ['-created']
+        """ order tickets by ascending order using their titles, and by descending order as regard to their publication date"""
+        
+        ordering = ['-created', 'title']
 
 
 ################ CURRENTLY ######################
